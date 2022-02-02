@@ -1,0 +1,32 @@
+body {
+    background-color: white;
+}
+
+.App {
+    background-color: white;
+    text-align: center;
+    font-family: 'Source Serif 4', sans-serif;
+}
+
+/* полоса прокрутки (скроллбар) */
+::-webkit-scrollbar {
+    width: 8px; /* ширина для вертикального скролла */
+    height: 8px; /* высота для горизонтального скролла */
+    background-color: #414548;
+}
+
+/* ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+    background-color: #65a9ec;
+    border-radius: 10em;
+    box-shadow: inset 1px 1px 10px #5b7369;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #0666f3;
+}
+
+select option {
+    background: rgba(52, 58, 64, 1);
+    color: #fff;
+}

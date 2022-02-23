@@ -1,0 +1,9 @@
+.my-link {
+    text-decoration: none;
+    color: #3a78dd;
+}
+
+.my-link:hover {
+    text-decoration: none;
+    color: #13489f;
+}

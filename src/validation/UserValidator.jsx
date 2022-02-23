@@ -4,7 +4,7 @@ class UserValidator {
     validateFirstname(firstname) {
         let error = "";
         if (!firstname || firstname === '') {
-            error = 'firstname cannot be empty!';
+            error = 'Имя не должно быть пустым!';
         } else if (firstname.length < 2) {
             error = 'firstname is too short!';
         } else if (firstname.length > 25) {
@@ -17,7 +17,7 @@ class UserValidator {
     validateLastname(lastname) {
         let error = "";
         if (!lastname || lastname === '') {
-            error = 'lastname cannot be empty!';
+            error = 'Фамилия не должна быть пустой!';
         } else if (lastname.length < 2) {
             error = 'lastname is too short!';
         } else if (lastname.length > 25) {
@@ -43,7 +43,7 @@ class UserValidator {
     validateEmail(email) {
         let error = "";
         if (!email || email === '') {
-            error = 'email cannot be empty!';
+            error = 'Почта не может быть пустой!';
         } else if (email.length < 2) {
             error = 'email is too short!';
         } else if (email.length > 25) {
@@ -79,17 +79,15 @@ class UserValidator {
         }
     }
 
-    validateAllForSignUp(firstname, lastname, username, email, password) {
+    validateAllForSignUp(firstname, lastname, email, password) {
         let firstnameError = this.validateFirstname(firstname)
         let lastnameError = this.validateLastname(lastname)
-        let usernameError = this.validateUsername(username)
         let emailError = this.validateEmail(email)
         let passwordError = this.validatePassword(password)
 
         return {
             firstnameError,
             lastnameError,
-            usernameError,
             emailError,
             passwordError
         }

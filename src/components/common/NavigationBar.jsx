@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
 import {Button, Container, Nav, Navbar} from "react-bootstrap"
-import imgLogo from '../img/logo.png'
+import imgLogo from '../../img/logo.png'
 
 import {Cookies} from "react-cookie"
 // import AuthService from "../../service/AuthService"
 import {Link} from "react-router-dom";
-import SignInDialog from "./SignInDialog";
-import SignUpDialog from "./SignUpDialog";
+import SignInModal from "./auth/SignInModal";
+import SignUpModal from "./auth/SignUpModal";
 
 function NavigationBar(props) {
     const cookies = new Cookies()
@@ -39,7 +39,7 @@ function NavigationBar(props) {
     const showModals = () => {
         if (showSignUpModal) {
             return (
-                <SignUpDialog
+                <SignUpModal
                     show={showSignUpModal}
                     onHide={() => setShowSignUpModal(false)}
                 />
@@ -47,7 +47,7 @@ function NavigationBar(props) {
         }
         if (showSignInModal) {
             return (
-                <SignInDialog
+                <SignInModal
                     show={showSignInModal}
                     onHide={() => setShowSignInModal(false)}
                 />

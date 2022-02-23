@@ -2,28 +2,29 @@ import React, {useState} from 'react'
 import {Alert, Button, Form, Modal} from "react-bootstrap"
 // import AuthService from "../../../../service/AuthService"
 import CSSTransition from "react-transition-group/CSSTransition";
-import UserValidator from "../validation/UserValidator";
+import UserValidator from "../../../validation/UserValidator";
 
-function SignUpDialog(props) {
-    const [username, setUsername] = useState('')
+function SignUpModal(props) {
+
+    // Form's values
     const [password, setPassword] = useState('')
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
     const [email, setEmail] = useState('')
-    const [showSuccessfulSignUp, setShowSuccessfulSignUp] = useState('');
-    const [showErrorSignUp, setShowErrorSignUp] = useState('');
 
-    // Errors
+    // Values Errors
     const [firstnameError, setFirstnameError] = useState('')
     const [lastnameError, setLastnameError] = useState('')
-    const [usernameError, setUsernameError] = useState('')
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
 
-    const changeUsernameHandler = (event) => {
-        setUsername(event.target.value)
-        setUsernameError("")
-    }
+    const [showSuccess, setShowSuccess] = useState('');
+    const [textSuccess, setTextSuccess] = useState('');
+
+    const [showError, setShowError] = useState(false);
+    const [textError, setTextError] = useState(false);
+
+
 
     const changePasswordHandler = (event) => {
         setPassword(event.target.value)
@@ -51,13 +52,12 @@ function SignUpDialog(props) {
      */
     const register = (event) => {
         event.preventDefault()
-        setShowErrorSignUp(false)
+        setShowError(false)
         if (!findFormErrorsForRegister()) {
             let request = {
                 firstname: firstname,
                 lastname: lastname,
                 email: email,
-                username: username,
                 password: password
             }
             // AuthService.register(request)
@@ -80,10 +80,9 @@ function SignUpDialog(props) {
     const findFormErrorsForRegister = () => {
         let isErrors = false
 
-        let errors = UserValidator.validateAllForSignUp(firstname, lastname, username, email, password)
+        let errors = UserValidator.validateAllForSignUp(firstname, lastname, email, password)
         setFirstnameError(errors.firstnameError)
         setLastnameError(errors.lastnameError)
-        setUsernameError(errors.usernameError)
         setEmailError(errors.emailError)
         setPasswordError(errors.passwordError)
 
@@ -105,18 +104,18 @@ function SignUpDialog(props) {
                 <Modal.Title>Регистрация</Modal.Title>
             </Modal.Header>
             <Modal.Body className="modal-dark">
-                <CSSTransition in={showErrorSignUp} classNames="my-node" timeout={100} unmountOnExit>
-                    <Alert variant="danger" onClose={() => setShowErrorSignUp(false)} dismissible>
-                        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-                        <p>{showErrorSignUp}</p>
-                    </Alert>
-                </CSSTransition>
-                <CSSTransition in={showSuccessfulSignUp} classNames="my-node" timeout={100} unmountOnExit>
-                    <Alert variant="success" onClose={() => setShowSuccessfulSignUp(false)} dismissible>
-                        <Alert.Heading>All right! You have successfully registered!</Alert.Heading>
-                        <p>Your username: {username}. Close after 5sec...</p>
-                    </Alert>
-                </CSSTransition>
+                {/*<CSSTransition in={showErrorSignUp} classNames="my-node" timeout={100} unmountOnExit>*/}
+                {/*    <Alert variant="danger" onClose={() => setShowErrorSignUp(false)} dismissible>*/}
+                {/*        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>*/}
+                {/*        <p>{showErrorSignUp}</p>*/}
+                {/*    </Alert>*/}
+                {/*</CSSTransition>*/}
+                {/*<CSSTransition in={showSuccessfulSignUp} classNames="my-node" timeout={100} unmountOnExit>*/}
+                {/*    <Alert variant="success" onClose={() => setShowSuccessfulSignUp(false)} dismissible>*/}
+                {/*        <Alert.Heading>All right! You have successfully registered!</Alert.Heading>*/}
+                {/*        <p>Your username: {username}. Close after 5sec...</p>*/}
+                {/*    </Alert>*/}
+                {/*</CSSTransition>*/}
                 <Form>
                     <Form.Group className="mb-3">
                         <Form.Label><b>Имя</b></Form.Label>
@@ -152,17 +151,6 @@ function SignUpDialog(props) {
                         <Form.Control.Feedback type='invalid'>{emailError}</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label><b>Логин</b></Form.Label>
-                        <Form.Control className="my-input"
-                                      type="text"
-                                      placeholder="Введите свой логин"
-                                      autocomplete="off"
-                                      isInvalid={usernameError}
-                                      onChange={changeUsernameHandler}
-                        />
-                        <Form.Control.Feedback type='invalid'>{usernameError}</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group className="mb-3">
                         <Form.Label><b>Пароль</b></Form.Label>
                         <Form.Control className="my-input"
                                       type="password"
@@ -183,4 +171,4 @@ function SignUpDialog(props) {
     )
 }
 
-export default SignUpDialog
+export default SignUpModal

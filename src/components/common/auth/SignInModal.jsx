@@ -3,27 +3,35 @@ import {Alert, Button, Form, Modal} from "react-bootstrap"
 import CSSTransition from "react-transition-group/CSSTransition"
 import {Cookies} from "react-cookie"
 import {Link} from "react-router-dom";
-import UserValidator from "../validation/UserValidator";
+import UserValidator from "../../../validation/UserValidator";
 // import AuthService from "../../../../service/AuthService"
 // import '../../../../styles/Animation.css'
 // import '../../../../styles/FormControl.css'
 // import '../../../../styles/ForgotPasswordLink.css'
 
-function SignInDialog(props) {
+function SignInModal(props) {
     const cookies = new Cookies()
-    const [username, setUsername] = useState('')
+
+    // Values
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [showError, setShowError] = useState('')
-    const [usernameError, setUsernameError] = useState('')
+
+    // Values errors
+    const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
 
+    // Global error of Sign in
+    const [showError, setShowError] = useState(false)
+    const [textError, setTextError] = useState(false)
+
+
     /**
-     * Method that set username value.
+     * Method that set email value.
      * @param event input event
      */
-    const changeUsernameHandler = (event) => {
-        setUsernameError('')
-        setUsername(event.target.value)
+    const changeEmailHandler = (event) => {
+        setEmailError('')
+        setEmail(event.target.value)
     }
 
     /**
@@ -72,9 +80,9 @@ function SignInDialog(props) {
         let error
 
         // username errors
-        error = UserValidator.validateUsername(username)
+        error = UserValidator.validateEmail(email)
         if (error !== "") {
-            setUsernameError(error);
+            setEmailError(error);
             isErrors = true
         }
 
@@ -84,6 +92,7 @@ function SignInDialog(props) {
             setPasswordError(error);
             isErrors = true
         }
+
         return isErrors
     }
 
@@ -108,14 +117,14 @@ function SignInDialog(props) {
                 </CSSTransition>
                 <Form>
                     <Form.Group className="mb-3">
-                        <Form.Label><b>Логин</b></Form.Label>
+                        <Form.Label><b>Почта</b></Form.Label>
                         <Form.Control className="my-input"
                                       type="text"
-                                      placeholder="Введите свой логин"
+                                      placeholder="Введите свою почту"
                                       autocomplete="off"
-                                      onChange={changeUsernameHandler}
-                                      isInvalid={usernameError}/>
-                        <Form.Control.Feedback type='invalid'>{usernameError}</Form.Control.Feedback>
+                                      onChange={changeEmailHandler}
+                                      isInvalid={emailError}/>
+                        <Form.Control.Feedback type='invalid'>{emailError}</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label><b>Пароль</b></Form.Label>
@@ -137,4 +146,4 @@ function SignInDialog(props) {
     )
 }
 
-export default SignInDialog
+export default SignInModal

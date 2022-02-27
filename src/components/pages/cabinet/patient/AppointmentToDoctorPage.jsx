@@ -1,7 +1,7 @@
 import React from 'react';
-import NavigationBar from "../../common/NavigationBar";
+import NavigationBar from "../../../common/NavigationBar";
 import {Button, Container} from "react-bootstrap";
-import Footer from "../../common/Footer";
+import Footer from "../../../common/Footer";
 import {Link} from "react-router-dom";
 
 function AppointmentToDoctorPage() {

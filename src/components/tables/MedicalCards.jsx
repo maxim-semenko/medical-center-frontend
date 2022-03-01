@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {Button, Container, Spinner, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import Moment from "moment";
 
 function MedicalCards(props) {
 
@@ -59,8 +60,8 @@ function MedicalCards(props) {
                                             <td><b>{index + 1}</b></td>
                                             <td><b>{medicalCard.userId}</b></td>
                                             <td><b>{medicalCard.employeeId}</b></td>
-                                            <td><b>{medicalCard.startDate}</b></td>
-                                            <td><b>{medicalCard.endDate}</b></td>
+                                            <td><b>{Moment(medicalCard.startDate).locale('ru').format('LLL')}</b></td>
+                                            <td><b>{Moment(medicalCard.endDate).locale('ru').format('LLL')}</b></td>
                                             <td><b>{medicalCard.description}</b></td>
                                             <td><b>{medicalCard.isRehabilitation ? 'да' : 'нет'}</b></td>
                                             <td><b>{medicalCard.isConfirmation ? 'да' : 'нет'}</b></td>

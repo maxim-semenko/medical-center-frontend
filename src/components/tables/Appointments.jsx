@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {Button, Container, Spinner, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import Moment from 'moment';
+import 'moment/locale/ru';
 
 function Appointments(props) {
-
-
     const [appointments, setAppointments] = useState([])
 
     useEffect(() => {
@@ -56,8 +56,8 @@ function Appointments(props) {
                                             <td><b>{index + 1}</b></td>
                                             <td><b>{appointment.employeeId}</b></td>
                                             <td><b>{appointment.userId}</b></td>
-                                            <td><b>{appointment.startDate}</b></td>
-                                            <td><b>{appointment.endDate}</b></td>
+                                            <td><b>{Moment(appointment.startDate).locale('ru').format('LLL')}</b></td>
+                                            <td><b>{Moment(appointment.endDate).locale('ru').format('LLL')}</b></td>
                                             <td><b>{appointment.description}</b></td>
                                         </tr>
                                     )

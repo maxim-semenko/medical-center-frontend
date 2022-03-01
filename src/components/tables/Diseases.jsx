@@ -33,7 +33,7 @@ function Diseases(props) {
                         <thead>
                         <tr>
                             <th>Номер</th>
-                            <th>Имя</th>
+                            <th>Название</th>
                             <th>Описание</th>
                         </tr>
                         </thead>

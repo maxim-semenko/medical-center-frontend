@@ -39,11 +39,9 @@ function Diseases(props) {
                         </thead>
                         {
                             diseases.length === 0 ?
-                                <div style={{textAlign: "center"}}>
-                                    <span style={{paddingTop: "0.3%", paddingLeft: "35%", position: "absolute"}}>
+                                <span style={{paddingTop: "0.3%", paddingLeft: "35%", position: "absolute"}}>
                                         <Spinner animation="border"/>
-                                    </span>
-                                </div>
+                                </span>
                                 :
                                 <tbody>
                                 {

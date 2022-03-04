@@ -1,10 +1,25 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import NavigationBar from "../../../common/NavigationBar";
-import {Button, Container, Table} from "react-bootstrap";
+import {Button, Container, Spinner, Table} from "react-bootstrap";
 import Footer from "../../../common/Footer";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 function AllEmployeesPage() {
+
+    const [employees, setEmployees] = useState([])
+
+    useEffect(() => {
+        axios.get("/api/v1/employees")
+            .then(resp => {
+                console.log(resp)
+                setEmployees(resp.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }, [])
+
     return (
         <div>
             <NavigationBar/>
@@ -27,15 +42,28 @@ function AllEmployeesPage() {
                             <th>Кваллификация</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td width="5%">1</td>
-                            <td width="25%">Иван</td>
-                            <td width="25%">Иваонов</td>
-                            <td width="25%">ivan@gmail.com</td>
-                            <td width="20%">Хирург</td>
-                        </tr>
-                        </tbody>
+                        {
+                            employees.length === 0 ?
+                                <div style={{textAlign: "center"}}>
+                                    <span style={{paddingTop: "0.3%", paddingLeft: "35%", position: "absolute"}}>
+                                        <Spinner animation="border"/>
+                                    </span>
+                                </div>
+                                :
+                                <tbody>
+                                {
+                                    employees.map((employee, index) =>
+                                        <tr key={index}>
+                                            <td><b>{index + 1}</b></td>
+                                            <td><b>{employee.firstname}</b></td>
+                                            <td><b>{employee.lastname}</b></td>
+                                            <td><b>{employee.speciality}</b></td>
+                                            <td><b>{employee.roleId}</b></td>
+                                        </tr>
+                                    )
+                                }
+                                </tbody>
+                        }
                     </Table>
                 </Container>
             </Container>

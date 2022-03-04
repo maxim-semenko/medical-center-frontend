@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
-import {Alert, Button, Form, Modal} from "react-bootstrap"
+import {Button, Col, Form, Modal, Row} from "react-bootstrap"
 // import AuthService from "../../../../service/AuthService"
-import CSSTransition from "react-transition-group/CSSTransition";
 import UserValidator from "../../../validation/UserValidator";
 
 function SignUpModal(props) {
@@ -11,19 +10,24 @@ function SignUpModal(props) {
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
     const [email, setEmail] = useState('')
+    const [passport, setPassport] = useState('')
+    const [bloodType, setBloodType] = useState('')
+    const [age, setAge] = useState(0)
 
     // Values Errors
     const [firstnameError, setFirstnameError] = useState('')
     const [lastnameError, setLastnameError] = useState('')
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
+    const [passportError, setPassportError] = useState('')
+    const [bloodTypeError, setBloodTypeError] = useState('')
+    const [ageError, setAgeError] = useState('')
 
     const [showSuccess, setShowSuccess] = useState('');
     const [textSuccess, setTextSuccess] = useState('');
 
     const [showError, setShowError] = useState(false);
     const [textError, setTextError] = useState(false);
-
 
 
     const changePasswordHandler = (event) => {
@@ -44,6 +48,21 @@ function SignUpModal(props) {
     const changeEmailHandler = (event) => {
         setEmail(event.target.value)
         setEmailError("")
+    }
+
+    const changePassportHandler = (event) => {
+        setPassport(event.target.value)
+        setPassportError("")
+    }
+
+    const changeBloodTypeHandler = (event) => {
+        setBloodType(event.target.value)
+        setBloodTypeError("")
+    }
+
+    const changeAgeHandler = (event) => {
+        setAge(event.target.value)
+        setAgeError("")
     }
 
     /**
@@ -80,10 +99,15 @@ function SignUpModal(props) {
     const findFormErrorsForRegister = () => {
         let isErrors = false
 
-        let errors = UserValidator.validateAllForSignUp(firstname, lastname, email, password)
+        let errors =
+            UserValidator.validateAllForSignUp(firstname, lastname, email, passport, bloodType, age, password)
+
         setFirstnameError(errors.firstnameError)
         setLastnameError(errors.lastnameError)
         setEmailError(errors.emailError)
+        setPassportError(errors.passportError)
+        setBloodTypeError(errors.bloodTypeError)
+        setAgeError(errors.ageError)
         setPasswordError(errors.passwordError)
 
         for (let key in errors) {
@@ -117,39 +141,91 @@ function SignUpModal(props) {
                 {/*    </Alert>*/}
                 {/*</CSSTransition>*/}
                 <Form>
-                    <Form.Group className="mb-3">
-                        <Form.Label><b>Имя</b></Form.Label>
-                        <Form.Control className="my-input"
-                                      type="text"
-                                      placeholder="Введите ваше имя"
-                                      autocomplete="off"
-                                      isInvalid={firstnameError}
-                                      onChange={changeFirstnameHandler}
-                        />
-                        <Form.Control.Feedback type='invalid'>{firstnameError}</Form.Control.Feedback>
-                    </Form.Group >
-                    <Form.Group className="mb-3">
-                        <Form.Label><b>Фамилия</b></Form.Label>
-                        <Form.Control className="my-input"
-                                      type="text"
-                                      placeholder="Введите вашу фамилию"
-                                      autocomplete="off"
-                                      isInvalid={lastnameError}
-                                      onChange={changeLastnameHandler}
-                        />
-                        <Form.Control.Feedback type='invalid'>{lastnameError}</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label><b>Почта</b></Form.Label>
-                        <Form.Control className="my-input"
-                                      type="email"
-                                      placeholder="Введите вашу почту"
-                                      autocomplete="off"
-                                      isInvalid={emailError}
-                                      onChange={changeEmailHandler}
-                        />
-                        <Form.Control.Feedback type='invalid'>{emailError}</Form.Control.Feedback>
-                    </Form.Group>
+                    <Row>
+                        <Col>
+                            <Form.Group className="mb-3">
+                                <Form.Label><b>Имя</b></Form.Label>
+                                <Form.Control className="my-input"
+                                              type="text"
+                                              placeholder="Введите ваше имя"
+                                              autocomplete="off"
+                                              isInvalid={firstnameError}
+                                              onChange={changeFirstnameHandler}
+                                />
+                                <Form.Control.Feedback type='invalid'>{firstnameError}</Form.Control.Feedback>
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group className="mb-3">
+                                <Form.Label><b>Фамилия</b></Form.Label>
+                                <Form.Control className="my-input"
+                                              type="text"
+                                              placeholder="Введите вашу фамилию"
+                                              autocomplete="off"
+                                              isInvalid={lastnameError}
+                                              onChange={changeLastnameHandler}
+                                />
+                                <Form.Control.Feedback type='invalid'>{lastnameError}</Form.Control.Feedback>
+                            </Form.Group>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Form.Group className="mb-3">
+                                <Form.Label><b>Почта</b></Form.Label>
+                                <Form.Control className="my-input"
+                                              type="email"
+                                              placeholder="Введите вашу почту"
+                                              autocomplete="off"
+                                              isInvalid={emailError}
+                                              onChange={changeEmailHandler}
+                                />
+                                <Form.Control.Feedback type='invalid'>{emailError}</Form.Control.Feedback>
+                            </Form.Group>
+                        </Col>
+                        {/*///////////////////////////////////////////////////////*/}
+                        <Col>
+                            <Form.Group className="mb-3">
+                                <Form.Label><b>Номер паспорта</b></Form.Label>
+                                <Form.Control className="my-input"
+                                              type="text"
+                                              placeholder="Введите ваш номер паспорта"
+                                              autocomplete="off"
+                                              isInvalid={passportError}
+                                              onChange={changePassportHandler}
+                                />
+                                <Form.Control.Feedback type='invalid'>{passportError}</Form.Control.Feedback>
+                            </Form.Group>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Form.Group className="mb-3">
+                                <Form.Label><b>Группа крови</b></Form.Label>
+                                <Form.Control className="my-input"
+                                              type="text"
+                                              placeholder="Введите вашу группу крови"
+                                              autocomplete="off"
+                                              isInvalid={bloodTypeError}
+                                              onChange={changeBloodTypeHandler}
+                                />
+                                <Form.Control.Feedback type='invalid'>{bloodTypeError}</Form.Control.Feedback>
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group className="mb-3">
+                                <Form.Label><b>Возраст</b></Form.Label>
+                                <Form.Control className="my-input"
+                                              type="number"
+                                              placeholder="Введите ваш возраст"
+                                              autocomplete="off"
+                                              isInvalid={ageError}
+                                              onChange={changeAgeHandler}
+                                />
+                                <Form.Control.Feedback type='invalid'>{ageError}</Form.Control.Feedback>
+                            </Form.Group>
+                        </Col>
+                    </Row>
                     <Form.Group className="mb-3">
                         <Form.Label><b>Пароль</b></Form.Label>
                         <Form.Control className="my-input"

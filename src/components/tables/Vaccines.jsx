@@ -5,7 +5,6 @@ import {Link} from "react-router-dom";
 
 function Vaccines(props) {
 
-
     const [vaccines, setVaccines] = useState([])
 
     useEffect(() => {

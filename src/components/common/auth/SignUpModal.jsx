@@ -148,7 +148,7 @@ function SignUpModal(props) {
                                 <Form.Control className="my-input"
                                               type="text"
                                               placeholder="Введите ваше имя"
-                                              autocomplete="off"
+                                              autoComplete="off"
                                               isInvalid={firstnameError}
                                               onChange={changeFirstnameHandler}
                                 />
@@ -161,7 +161,7 @@ function SignUpModal(props) {
                                 <Form.Control className="my-input"
                                               type="text"
                                               placeholder="Введите вашу фамилию"
-                                              autocomplete="off"
+                                              autoComplete="off"
                                               isInvalid={lastnameError}
                                               onChange={changeLastnameHandler}
                                 />
@@ -176,7 +176,7 @@ function SignUpModal(props) {
                                 <Form.Control className="my-input"
                                               type="email"
                                               placeholder="Введите вашу почту"
-                                              autocomplete="off"
+                                              autoComplete="off"
                                               isInvalid={emailError}
                                               onChange={changeEmailHandler}
                                 />
@@ -190,7 +190,7 @@ function SignUpModal(props) {
                                 <Form.Control className="my-input"
                                               type="text"
                                               placeholder="Введите ваш номер паспорта"
-                                              autocomplete="off"
+                                              autoComplete="off"
                                               isInvalid={passportError}
                                               onChange={changePassportHandler}
                                 />
@@ -205,7 +205,7 @@ function SignUpModal(props) {
                                 <Form.Control className="my-input"
                                               type="text"
                                               placeholder="Введите вашу группу крови"
-                                              autocomplete="off"
+                                              autoComplete="off"
                                               isInvalid={bloodTypeError}
                                               onChange={changeBloodTypeHandler}
                                 />
@@ -218,7 +218,7 @@ function SignUpModal(props) {
                                 <Form.Control className="my-input"
                                               type="number"
                                               placeholder="Введите ваш возраст"
-                                              autocomplete="off"
+                                              autoComplete="off"
                                               isInvalid={ageError}
                                               onChange={changeAgeHandler}
                                 />
@@ -231,7 +231,7 @@ function SignUpModal(props) {
                         <Form.Control className="my-input"
                                       type="password"
                                       placeholder="Введите свой пароль"
-                                      autocomplete="off"
+                                      autoComplete="off"
                                       isInvalid={passwordError}
                                       onChange={changePasswordHandler}
                         />
@@ -240,8 +240,8 @@ function SignUpModal(props) {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="outline-danger" onClick={props.onHide}>Отмена</Button>
-                <Button variant="outline-success" type="submit" onClick={register}>Регистрация</Button>
+                <Button variant="outline-danger" onClick={props.onHide}><b>Отмена</b></Button>
+                <Button variant="outline-success" type="submit" onClick={register}><b>Регистрация</b></Button>
             </Modal.Footer>
         </Modal>
     )

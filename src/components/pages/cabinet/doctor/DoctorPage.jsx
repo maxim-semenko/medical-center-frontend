@@ -22,6 +22,10 @@ function DoctorPage(props) {
                             <h1>Список всех своих пациентов</h1>
                         </Link>
                         <hr/>
+                        <Link to="all-patients" className="my-link">
+                            <h1>Список вакцинации пациентов</h1>
+                        </Link>
+                        <hr/>
                     </div>
                 </Container>
             </Container>

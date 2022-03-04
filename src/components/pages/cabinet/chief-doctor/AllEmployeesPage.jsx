@@ -32,39 +32,38 @@ function AllEmployeesPage() {
                             <Button variant="outline-danger" size="lg">Назад</Button>
                         </Link>
                     </div>
-                    <Table striped bordered hover style={{textAlign: "center"}}>
-                        <thead>
-                        <tr>
-                            <th>Номер</th>
-                            <th>Имя</th>
-                            <th>Фамилия</th>
-                            <th>Почта</th>
-                            <th>Кваллификация</th>
-                        </tr>
-                        </thead>
-                        {
-                            employees.length === 0 ?
-                                <div style={{textAlign: "center"}}>
-                                    <span style={{paddingTop: "0.3%", paddingLeft: "35%", position: "absolute"}}>
-                                        <Spinner animation="border"/>
-                                    </span>
-                                </div>
-                                :
-                                <tbody>
+                    {
+                        employees.length === 0 ?
+                            <h1 className={"text-center"}><Spinner animation="border"/></h1>
+                            :
+                            <Table striped bordered hover style={{textAlign: "center"}}>
+                                <thead>
+                                <tr>
+                                    <th>Номер</th>
+                                    <th>Имя</th>
+                                    <th>Фамилия</th>
+                                    <th>Почта</th>
+                                    <th>Кваллификация</th>
+                                </tr>
+                                </thead>
                                 {
-                                    employees.map((employee, index) =>
-                                        <tr key={index}>
-                                            <td><b>{index + 1}</b></td>
-                                            <td><b>{employee.firstname}</b></td>
-                                            <td><b>{employee.lastname}</b></td>
-                                            <td><b>{employee.speciality}</b></td>
-                                            <td><b>{employee.roleId}</b></td>
-                                        </tr>
-                                    )
+                                    <tbody>
+                                    {
+                                        employees.map((employee, index) =>
+                                            <tr key={index}>
+                                                <td><b>{index + 1}</b></td>
+                                                <td><b>{employee.firstname}</b></td>
+                                                <td><b>{employee.lastname}</b></td>
+                                                <td><b>{employee.speciality}</b></td>
+                                                <td><b>{employee.roleId}</b></td>
+                                            </tr>
+                                        )
+                                    }
+                                    </tbody>
                                 }
-                                </tbody>
-                        }
-                    </Table>
+                            </Table>
+                    }
+
                 </Container>
             </Container>
             <Footer/>

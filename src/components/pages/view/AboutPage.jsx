@@ -36,7 +36,7 @@ function AboutPage() {
                             <Container>
                                 <div>
                                     <p>Телефон: +375 (33) 333-97-03</p>
-                                    <p>Городскойй телефон: 	8-017-29-15-41</p>
+                                    <p>Городской телефон: 8-017-29-15-41</p>
                                     <p>Email: med.valeria@gmail.com</p>
                                 </div>
                             </Container>

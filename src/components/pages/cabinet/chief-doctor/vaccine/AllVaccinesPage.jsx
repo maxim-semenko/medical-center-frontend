@@ -3,27 +3,27 @@ import NavigationBar from "../../../../common/NavigationBar";
 import {Button, Container, Spinner, Table} from "react-bootstrap";
 import Footer from "../../../../common/Footer";
 import {Link} from "react-router-dom";
-import axios from "axios";
 import DeleteVaccineModal from "./DeleteVaccineModal";
 import CreateUpdateVaccineModal from "./CreateUpdateVaccineModal";
+import {useDispatch, useSelector} from "react-redux";
+import {findVaccines} from "../../../../../redux/vaccine/VaccineAction";
 
 function AllVaccinesPage() {
+    const [isInit, setIsInit] = useState(false)
+    const dispatch = useDispatch()
+    const {vaccines, loadingVaccines, currentPage, sizePage, totalElements} = useSelector(state => state.vaccineDate)
 
-    const [vaccines, setVaccines] = useState([])
+    // const [vaccines, setVaccines] = useState([])
     const [showCreateUpdateVaccinesDialog, setShowCreateUpdateVaccinesDialog] = useState(false)
     const [showDeleteVaccinesDialog, setShowDeleteVaccinesDialog] = useState(false)
     const [modeDialog, setModeDialog] = useState('')
 
     useEffect(() => {
-        axios.get("/api/v1/vaccines")
-            .then(resp => {
-                console.log(resp)
-                setVaccines(resp.data)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    })
+        if (!isInit) {
+            dispatch(findVaccines())
+            setIsInit(true)
+        }
+    }, [isInit])
 
 
     const createVaccine = () => {
@@ -76,21 +76,19 @@ function AllVaccinesPage() {
                         {' '}
                         <Button variant="outline-primary" size="lg" onClick={() => createVaccine()}>Добавить</Button>
                     </div>
-                    <Table striped bordered hover style={{textAlign: "center"}}>
-                        <thead>
-                        <tr>
-                            <th width="5%">Номер</th>
-                            <th width="30%">Название</th>
-                            <th width="45%">Описание</th>
-                            <th>Действие</th>
-                        </tr>
-                        </thead>
-                        {
-                            vaccines.length === 0 ?
-                                <span style={{paddingTop: "0.3%", paddingLeft: "35%", position: "absolute"}}>
-                                        <Spinner animation="border"/>
-                                </span>
-                                :
+                    {
+                        loadingVaccines ?
+                            <h1 className={"text-center"}><Spinner animation="border"/></h1>
+                            :
+                            <Table striped bordered hover style={{textAlign: "center"}}>
+                                <thead>
+                                <tr>
+                                    <th width="5%">Номер</th>
+                                    <th width="30%">Название</th>
+                                    <th width="45%">Описание</th>
+                                    <th>Действие</th>
+                                </tr>
+                                </thead>
                                 <tbody>
                                 {
                                     vaccines.map((vaccine, index) =>
@@ -111,8 +109,8 @@ function AllVaccinesPage() {
                                     )
                                 }
                                 </tbody>
-                        }
-                    </Table>
+                            </Table>
+                    }
                 </Container>
             </Container>
             <Footer/>

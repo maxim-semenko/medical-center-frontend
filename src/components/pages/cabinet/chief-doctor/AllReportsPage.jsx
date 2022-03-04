@@ -1,6 +1,6 @@
 import React from 'react';
 import NavigationBar from "../../../common/NavigationBar";
-import {Accordion, Button, Container, Table} from "react-bootstrap";
+import {Accordion, Button, Container} from "react-bootstrap";
 import Footer from "../../../common/Footer";
 import {Link} from "react-router-dom";
 
@@ -21,7 +21,8 @@ function AllReportsPage() {
                         <Accordion.Item eventKey="0">
                             <Accordion.Header><b>Отчет о наиболее частых болезнях</b></Accordion.Header>
                             <Accordion.Body>
-                                Описание: Представляет список болезней, которыми пациенты болели наибольшее количество раз.
+                                Описание: Представляет список болезней, которыми пациенты болели наибольшее количество
+                                раз.
                             </Accordion.Body>
                         </Accordion.Item>
                         <Accordion.Item eventKey="1">
@@ -31,7 +32,8 @@ function AllReportsPage() {
                             </Accordion.Body>
                         </Accordion.Item>
                         <Accordion.Item eventKey="2">
-                            <Accordion.Header><b>Отчет о самой рисковой группе населения по возрасту</b></Accordion.Header>
+                            <Accordion.Header><b>Отчет о самой рисковой группе населения по
+                                возрасту</b></Accordion.Header>
                             <Accordion.Body>
                                 Описание: Представляет список возрастных групп пациентов, которые больше всех
                                 подвержаны заболеваниям.
@@ -44,7 +46,7 @@ function AllReportsPage() {
                             </Accordion.Body>
                         </Accordion.Item>
                         <Accordion.Item eventKey="4">
-                            <Accordion.Header><b>Отчет о всех сотрудних</b></Accordion.Header>
+                            <Accordion.Header><b>Отчет о всех сотрудниках</b></Accordion.Header>
                             <Accordion.Body>
                                 Описание: Представляет список с информацией о всех сотрудниках.
                             </Accordion.Body>

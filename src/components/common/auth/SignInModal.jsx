@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import {Alert, Button, Form, Modal} from "react-bootstrap"
 import CSSTransition from "react-transition-group/CSSTransition"
 import {Cookies} from "react-cookie"
-import {Link} from "react-router-dom";
 import UserValidator from "../../../validation/UserValidator";
 // import AuthService from "../../../../service/AuthService"
 // import '../../../../styles/Animation.css'
@@ -121,7 +120,7 @@ function SignInModal(props) {
                         <Form.Control className="my-input"
                                       type="text"
                                       placeholder="Введите свою почту"
-                                      autocomplete="off"
+                                      autoComplete="off"
                                       onChange={changeEmailHandler}
                                       isInvalid={emailError}/>
                         <Form.Control.Feedback type='invalid'>{emailError}</Form.Control.Feedback>
@@ -131,7 +130,7 @@ function SignInModal(props) {
                         <Form.Control className="my-input"
                                       type="password"
                                       placeholder="Введите свой пароль"
-                                      autocomplete="off"
+                                      autoComplete="off"
                                       onChange={changePasswordHandler}
                                       isInvalid={passwordError}/>
                         <Form.Control.Feedback type='invalid'>{passwordError}</Form.Control.Feedback>
@@ -139,8 +138,8 @@ function SignInModal(props) {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="outline-danger" onClick={closeModal}>Отмена</Button>
-                <Button variant="outline-primary" type="submit" onClick={handleSubmit}>Войти</Button>
+                <Button variant="outline-danger" onClick={closeModal}><b>Отмена</b></Button>
+                <Button variant="outline-primary" type="submit" onClick={handleSubmit}><b>Войти</b></Button>
             </Modal.Footer>
         </Modal>
     )

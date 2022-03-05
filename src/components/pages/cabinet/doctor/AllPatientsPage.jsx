@@ -5,10 +5,9 @@ import Footer from "../../../common/Footer";
 import {Link} from "react-router-dom";
 
 function AllPatientsPage() {
-    return (
-        <div>
 
-            <NavigationBar/>
+    const Content = () => {
+        return (
             <Container className="main-container" style={{marginBottom: "10%"}}>
                 <h1 style={{textAlign: "center", marginBottom: "15px"}}><b>Список пациентов</b></h1>
                 <hr/>
@@ -41,8 +40,14 @@ function AllPatientsPage() {
                     </Table>
                 </Container>
             </Container>
-            <Footer/>
+        )
+    }
 
+    return (
+        <div>
+            <NavigationBar/>
+            <Content/>
+            <Footer/>
         </div>
     );
 }

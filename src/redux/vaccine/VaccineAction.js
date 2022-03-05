@@ -42,7 +42,7 @@ export const setLoadingVaccines = (loading) => ({
 })
 
 export const setLoadingVaccine = (loading) => ({
-    type: types.SET_SIZE_PAGE_VACCINE,
+    type: types.SET_LOADING_VACCINE,
     payload: loading
 })
 
@@ -82,7 +82,7 @@ export const findVaccineById = (id) => {
 export function createVaccine(vaccine) {
     return (dispatch) => {
         return new Promise((resolve, reject) => {
-            VaccineService.create(vaccine)
+            VaccineService.findAll()
                 .then((response) => {
                     console.log(response)
                     dispatch(createdVaccineSuccess(vaccine))

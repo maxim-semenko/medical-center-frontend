@@ -9,18 +9,16 @@ import {Link} from "react-router-dom";
 import TopDoctorsComponent from "../../common/TopDoctorsComponent";
 
 function HomePage() {
-    return (
-        <div>
-            <NavigationBar/>
+
+    const Content = () => {
+        return (
             <Container className="main-container">
                 <Row>
                     <Container>
                         <h1 style={{textAlign: "center", marginBottom: "15px"}}><b>Главная</b></h1>
                         <hr/>
                         <Row style={{paddingBottom: "3%"}}>
-                            <Col>
-                                <img alt="" src={imgHome} width="100%" className="d-inline-block align-top"/>{' '}
-                            </Col>
+                            <Col><img alt="" src={imgHome} width="100%"/></Col>
                             <Col>
                                 <div style={{fontSize: "3.1vw"}}>
                                     <ul>
@@ -32,30 +30,27 @@ function HomePage() {
                             </Col>
                         </Row>
                         <Row style={{paddingBottom: "3%"}}>
+                            <Col><img alt="" src={imgLaboratory} width="100%"/></Col>
                             <Col>
-                                <img alt="" src={imgLaboratory} width="100%" className="d-inline-block align-top"/>{' '}
-                            </Col>
-                            <Col>
-                                <div>
-                                    <p style={{fontSize: "2vw", textAlign: "justify"}}>
-                                        Каждый день мы следим за новыми открытиями и инновациями в области медицины
-                                        и делаем все возможное, чтобы наши мединцинские центры оборудовались
-                                        последними новейшими технологиями
-                                    </p>
-                                </div>
-                                <div>
-                                    <Link to="/about">
-                                        <Button variant="success" size="lg">Подробнее о нас</Button>
-                                    </Link>
-                                </div>
+                                <p style={{fontSize: "2vw", textAlign: "justify"}}>
+                                    Каждый день мы следим за новыми открытиями и инновациями в области медицины
+                                    и делаем все возможное, чтобы наши мединцинские центры оборудовались
+                                    последними новейшими технологиями
+                                </p>
+                                <Link to="/about"><Button variant="success" size="lg">Подробнее о нас</Button></Link>
                             </Col>
                         </Row>
-                        <div style={{paddingBottom: "3%"}}>
-                            <TopDoctorsComponent/>
-                        </div>
+                        <div style={{paddingBottom: "3%"}}><TopDoctorsComponent/></div>
                     </Container>
                 </Row>
             </Container>
+        )
+    }
+
+    return (
+        <div>
+            <NavigationBar/>
+            <Content/>
             <Footer/>
         </div>
     );

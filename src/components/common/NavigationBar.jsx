@@ -30,7 +30,8 @@ function NavigationBar(props) {
                 <div>
                     <Button variant="outline-primary" onClick={() => setShowSignInModal(true)}><b>Войти</b></Button>
                     {' '}
-                    <Button variant="outline-success" onClick={() => setShowSignUpModal(true)}><b>Регистрация</b></Button>
+                    <Button variant="outline-success"
+                            onClick={() => setShowSignUpModal(true)}><b>Регистрация</b></Button>
                 </div>
             )
         }

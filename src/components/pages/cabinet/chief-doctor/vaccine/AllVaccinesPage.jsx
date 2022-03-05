@@ -61,10 +61,8 @@ function AllVaccinesPage() {
         }
     }
 
-    return (
-        <div>
-            {showDialogs()}
-            <NavigationBar/>
+    const Content = () => {
+        return (
             <Container className="main-container" style={{marginBottom: "10%"}}>
                 <h1 style={{textAlign: "center", marginBottom: "15px"}}><b>Список вакцин</b></h1>
                 <hr/>
@@ -113,6 +111,14 @@ function AllVaccinesPage() {
                     }
                 </Container>
             </Container>
+        )
+    }
+
+    return (
+        <div>
+            {showDialogs()}
+            <NavigationBar/>
+            <Content/>
             <Footer/>
         </div>
     );

@@ -6,9 +6,9 @@ import Footer from "../../../common/Footer";
 import "../../../../styles/Link.css"
 
 function AppointmentToDoctorPage() {
-    return (
-        <div>
-            <NavigationBar/>
+
+    const Content = () => {
+        return (
             <Container className="main-container" style={{marginBottom: "10%"}}>
                 <h1 style={{textAlign: "center", marginBottom: "15px"}}><b>Управление глав-врача</b></h1>
                 <hr/>
@@ -34,6 +34,13 @@ function AppointmentToDoctorPage() {
                     </div>
                 </Container>
             </Container>
+        )
+    }
+
+    return (
+        <div>
+            <NavigationBar/>
+            <Content/>
             <Footer/>
         </div>
     );

@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Form, Modal} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {createVaccine, updateVaccine} from "../../../../../redux/vaccine/VaccineAction";
+import {toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 
 function CreateUpdateVaccineModal(props) {
 
@@ -14,9 +16,18 @@ function CreateUpdateVaccineModal(props) {
 
 
     const dispatch = useDispatch()
-    const {vaccines, loadingVaccines} = useSelector(state => state.vaccineDate)
+    const {vaccine, loadingVaccine} = useSelector(state => state.vaccineDate)
 
-    // const {genre, loading} = useSelector(state => state.dataGenres)
+
+    useEffect(() => {
+        if (props.mode === "update") {
+            setId(vaccine.id)
+            setName(vaccine.name)
+            setDescription(vaccine.description)
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const changeNameHandler = (event) => {
         setName(event.target.value)
@@ -37,10 +48,19 @@ function CreateUpdateVaccineModal(props) {
             if (props.mode === "create") {
                 dispatch(createVaccine(request))
                     .then(() => {
-                        alert("!!!!!!!!!!")
+                        notifySuccess('Новая вакцина была успешно добавлена!')
                     })
+                    .catch(() => {
+                        notifyError('Произошла ошибка при добавлении новой вакцины!')
+                    });
             } else {
                 dispatch(updateVaccine(request, id))
+                    .then(() => {
+                        notifySuccess('Вакцина была успешно обновлена!')
+                    })
+                    .catch(() => {
+                        notifyError('Произошла ошибка при обновлении вакцины!')
+                    });
             }
         }
     }
@@ -55,7 +75,17 @@ function CreateUpdateVaccineModal(props) {
 
     }
 
-    // toast.configure()
+    const notifyError = (text) => toast.error(text, {
+        autoClose: 2000,
+        position: "top-right",
+    });
+
+    const notifySuccess = (text) => toast.success(text, {
+        autoClose: 2000,
+        position: "top-right",
+    });
+
+    toast.configure()
     return (
         <div>
             <Modal{...props} size="lg"

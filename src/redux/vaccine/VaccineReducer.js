@@ -12,7 +12,7 @@ const initialState = {
     numberOfElements: 0,
 }
 
-const vaccineReducers = (state = initialState, action = {}) => {
+const vaccineReducer = (state = initialState, action = {}) => {
     switch (action.type) {
         case types.GET_VACCINES:
             return {
@@ -73,4 +73,4 @@ const vaccineReducers = (state = initialState, action = {}) => {
     }
 }
 
-export default vaccineReducers;
+export default vaccineReducer;

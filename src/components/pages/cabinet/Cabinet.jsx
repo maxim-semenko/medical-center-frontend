@@ -6,10 +6,10 @@ import {Link} from "react-router-dom";
 import '../../../styles/App.css'
 
 function Cabinet() {
-    return (
-        <div>
-            <NavigationBar/>
-            <Container className="main-container">
+
+    const Content = () => {
+        return (
+            <Container className="main-container" style={{marginBottom: "7%"}}>
                 <h1 style={{textAlign: "center", marginBottom: "15px"}}><b>Ваш кабинет</b></h1>
                 <hr/>
                 <Container>
@@ -35,7 +35,13 @@ function Cabinet() {
                     </Row>
                 </Container>
             </Container>
-            <br/>
+        )
+    }
+
+    return (
+        <div>
+            <NavigationBar/>
+            <Content/>
             <Footer/>
         </div>
     );

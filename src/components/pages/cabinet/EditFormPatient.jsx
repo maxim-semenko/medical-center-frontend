@@ -5,9 +5,9 @@ import {Button, Container} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 function EditFormPatient() {
-    return (
-        <div>
-            <NavigationBar/>
+
+    const Content = () => {
+        return (
             <Container className="main-container">
                 <h1 style={{textAlign: "center", marginBottom: "15px"}}><b>Редактирование профиля</b></h1>
                 <hr/>
@@ -17,6 +17,13 @@ function EditFormPatient() {
                     </div>
                 </Container>
             </Container>
+        )
+    }
+
+    return (
+        <div>
+            <NavigationBar/>
+            <Content/>
             <Footer/>
         </div>
     );

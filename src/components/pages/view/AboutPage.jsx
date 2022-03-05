@@ -6,9 +6,9 @@ import CarouselAboutComponents from "../../common/CarouselAboutComponents";
 import imgAbout from "../../../img/center.jpg";
 
 function AboutPage() {
-    return (
-        <div>
-            <NavigationBar/>
+
+    const Content = () => {
+        return (
             <Container className="main-container">
                 <Row>
                     <Container>
@@ -44,6 +44,13 @@ function AboutPage() {
                     </Container>
                 </Row>
             </Container>
+        )
+    }
+
+    return (
+        <div>
+            <NavigationBar/>
+            <Content/>
             <Footer/>
         </div>
     );

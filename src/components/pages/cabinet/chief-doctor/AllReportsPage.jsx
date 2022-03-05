@@ -5,10 +5,10 @@ import Footer from "../../../common/Footer";
 import {Link} from "react-router-dom";
 
 function AllReportsPage() {
-    return (
-        <div>
-            <NavigationBar/>
-            <Container className="main-container" style={{marginBottom: "10%"}}>
+
+    const Content = () => {
+        return (
+            <Container className="main-container" style={{marginBottom: "11%"}}>
                 <h1 style={{textAlign: "center", marginBottom: "15px"}}><b>Список отчетов</b></h1>
                 <hr/>
                 <Container>
@@ -54,7 +54,14 @@ function AllReportsPage() {
                     </Accordion>
                 </Container>
             </Container>
-            <br/>
+
+        )
+    }
+
+    return (
+        <div>
+            <NavigationBar/>
+            <Content/>
             <Footer/>
         </div>
     );

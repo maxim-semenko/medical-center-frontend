@@ -20,14 +20,13 @@ function CreateUpdateVaccineModal(props) {
 
 
     useEffect(() => {
-        if (props.mode === "update") {
-            setId(vaccine.id)
+        if (props.mode === "update" && !loadingVaccine) {
+            setId(vaccine.vaccineId)
             setName(vaccine.name)
             setDescription(vaccine.description)
         }
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [loadingVaccine])
 
     const changeNameHandler = (event) => {
         setName(event.target.value)
@@ -96,32 +95,37 @@ function CreateUpdateVaccineModal(props) {
                     <Modal.Title><b>{props.mode === "create" ? "Добавить вакцину" : "Изменить вакцину"}</b></Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="modal-dark">
-                    <Form>
-                        <Form.Group className="mb-3">
-                            <Form.Label><b>Название</b></Form.Label>
-                            <Form.Control className="my-input"
-                                          type="text"
-                                          value={name}
-                                          placeholder="Введите название"
-                                          autoComplete="off"
-                                          onChange={changeNameHandler}
-                                          isInvalid={nameError}
-                            />
-                            <Form.Control.Feedback type='invalid'>{nameError}</Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label><b>Описание</b></Form.Label>
-                            <Form.Control className="my-input"
-                                          type="text"
-                                          value={description}
-                                          placeholder="Введите описание"
-                                          autoComplete="off"
-                                          onChange={changeDescriptionHandler}
-                                          isInvalid={descriptionError}
-                            />
-                            <Form.Control.Feedback type='invalid'>{descriptionError}</Form.Control.Feedback>
-                        </Form.Group>
-                    </Form>
+                    {
+                        props.mode === "update" && loadingVaccine ?
+                            <div>loading...</div>
+                            :
+                            <Form>
+                                <Form.Group className="mb-3">
+                                    <Form.Label><b>Название</b></Form.Label>
+                                    <Form.Control className="my-input"
+                                                  type="text"
+                                                  value={name}
+                                                  placeholder="Введите название"
+                                                  autoComplete="off"
+                                                  onChange={changeNameHandler}
+                                                  isInvalid={nameError}
+                                    />
+                                    <Form.Control.Feedback type='invalid'>{nameError}</Form.Control.Feedback>
+                                </Form.Group>
+                                <Form.Group className="mb-3">
+                                    <Form.Label><b>Описание</b></Form.Label>
+                                    <Form.Control className="my-input"
+                                                  type="text"
+                                                  value={description}
+                                                  placeholder="Введите описание"
+                                                  autoComplete="off"
+                                                  onChange={changeDescriptionHandler}
+                                                  isInvalid={descriptionError}
+                                    />
+                                    <Form.Control.Feedback type='invalid'>{descriptionError}</Form.Control.Feedback>
+                                </Form.Group>
+                            </Form>
+                    }
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="outline-danger" onClick={() => props.onHide()}>Закрыть</Button>

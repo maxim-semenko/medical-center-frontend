@@ -13,7 +13,7 @@ class VaccineService {
     }
 
     async findById(id) {
-        return axios.get(`${VACCINE_API_URL}/{id}`)
+        return axios.get(`${VACCINE_API_URL}/${id}`)
     }
 
     async create(request) {

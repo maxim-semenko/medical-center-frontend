@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import DeleteVaccineModal from "./DeleteVaccineModal";
 import CreateUpdateVaccineModal from "./CreateUpdateVaccineModal";
 import {useDispatch, useSelector} from "react-redux";
-import {findVaccines} from "../../../../../redux/vaccine/VaccineAction";
+import {findVaccineById, findVaccines} from "../../../../../redux/vaccine/VaccineAction";
 
 function AllVaccinesPage() {
     const [isInit, setIsInit] = useState(false)
@@ -31,13 +31,15 @@ function AllVaccinesPage() {
         setModeDialog("create")
     }
 
-    const updateVaccine = () => {
+    const updateVaccine = (id) => {
+        console.log(id)
+        dispatch(findVaccineById(id))
         setShowCreateUpdateVaccinesDialog(true);
         setModeDialog("update")
     }
 
     const deleteVaccine = (id) => {
-        // dispatch(getGenreById(id))
+        dispatch(findVaccineById(id))
         setShowDeleteVaccinesDialog(true)
     }
 
@@ -95,11 +97,11 @@ function AllVaccinesPage() {
                                             <td><b>{vaccine.name}</b></td>
                                             <td><b>{vaccine.description}</b></td>
                                             <td><Button variant="outline-success"
-                                                        onClick={() => updateVaccine(vaccine.id)}>
+                                                        onClick={() => updateVaccine(vaccine.vaccineId)}>
                                                 <b>Изменить</b>
                                             </Button>{' '}
                                                 <Button variant="outline-danger"
-                                                        onClick={() => deleteVaccine(vaccine.id)}>
+                                                        onClick={() => deleteVaccine(vaccine.vaccineId)}>
                                                     <b>Удалить</b>
                                                 </Button>
                                             </td>

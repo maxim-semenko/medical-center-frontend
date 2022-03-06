@@ -35,7 +35,7 @@ const vaccineReducer = (state = initialState, action = {}) => {
                 vaccines: [...state.vaccines, action.payload]
             }
         case types.UPDATE_VACCINE:
-            const objIndex = state.vaccines.findIndex((item => item.id === action.payload.id));
+            const objIndex = state.vaccines.findIndex((item => item.vaccineId === action.payload.vaccineId));
             let updatedVaccines = state.vaccines;
             updatedVaccines[objIndex] = action.payload
             return {
@@ -45,7 +45,7 @@ const vaccineReducer = (state = initialState, action = {}) => {
         case types.DELETE_VACCINE:
             return {
                 ...state,
-                vaccines: state.vaccines.filter(item => item.id !== action.payload),
+                vaccines: state.vaccines.filter(item => item.vaccineId !== action.payload),
                 loading: false,
             }
         case types.SET_CURRENT_PAGE_VACCINE:

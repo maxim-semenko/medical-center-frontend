@@ -53,12 +53,12 @@ export const findVaccines = (currentPage = 0, sizePage = 0) => {
         dispatch(setLoadingVaccines(true))
         VaccineService.findAll(currentPage, sizePage)
             .then((resp) => {
-                console.log(resp.data)
                 dispatch(gotVaccinesSuccess(resp.data))
+                console.log(resp.data)
             })
             .catch(error => {
-                console.log(error)
                 dispatch(setLoadingVaccines(false))
+                console.log(error)
             })
     }
 }
@@ -69,8 +69,8 @@ export const findVaccineById = (id) => {
         dispatch(setLoadingVaccine(true))
         VaccineService.findById(id)
             .then((resp) => {
-                console.log(resp.data)
                 dispatch(gotVaccineSuccess(resp.data))
+                console.log(resp.data)
             })
             .catch(error => {
                 console.log(error)
@@ -82,10 +82,10 @@ export const findVaccineById = (id) => {
 export function createVaccine(vaccine) {
     return (dispatch) => {
         return new Promise((resolve, reject) => {
-            VaccineService.findAll()
+            VaccineService.create(vaccine)
                 .then((response) => {
-                    console.log(response)
                     dispatch(createdVaccineSuccess(vaccine))
+                    console.log(response)
                     return resolve(response);
                 })
                 .catch(error => {
@@ -101,8 +101,8 @@ export const updateVaccine = (vaccine, id) => {
         return new Promise((resolve, reject) => {
             VaccineService.update(vaccine, id)
                 .then((response) => {
-                    console.log(response)
                     dispatch(updatedVaccineSuccess(response.data))
+                    console.log(response)
                     return resolve(response);
                 })
                 .catch(error => {
@@ -118,8 +118,8 @@ export const deleteVaccineById = (id) => {
         return new Promise((resolve, reject) => {
             VaccineService.deleteById(id)
                 .then((response) => {
-                    console.log(response)
                     dispatch(deletedVaccineSuccess(id))
+                    console.log(response)
                     return resolve(response);
                 })
                 .catch(error => {

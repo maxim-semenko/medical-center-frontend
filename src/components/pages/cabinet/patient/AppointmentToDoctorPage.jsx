@@ -31,7 +31,7 @@ function AppointmentToDoctorPage() {
             dispatch(findEmployees())
             setIsInit(true)
         }
-    }, [isInit])
+    }, [])
 
     const findErrors = (request) => {
         let errors = false
@@ -47,7 +47,12 @@ function AppointmentToDoctorPage() {
         return errors
     }
 
-    const changeEmployeeHandler = (event) => {
+    const changeStartDateHandler = (date) => {
+        setStartDate(date)
+        setStartDateError('')
+    }
+
+    const changeDoctorHandler = (event) => {
         setEmployee(JSON.parse(event.target.value))
         setEmployeeError('')
     }
@@ -71,13 +76,14 @@ function AppointmentToDoctorPage() {
             <Form.Group className="mb-3">
                 <Form.Label><b>Выберите врача</b></Form.Label>
                 <Form.Select
-                    as="select" aria-label="Default select example"
+                    value={JSON.stringify(employee)}
+                    aria-label="Default select example"
                     isInvalid={employeeError}
-                    onChange={changeEmployeeHandler}>
+                    onChange={changeDoctorHandler}>
                     <option key={0} value={"null"}>Выберите...</option>
-                    {employees.map((employee, index) =>
-                        <option key={index} value={JSON.stringify(employee)}>
-                            {employee.firstname} {employee.lastname} ({employee.speciality})
+                    {employees.map((item, index) =>
+                        <option key={index} value={JSON.stringify(item)}>
+                            {item.firstname} {item.lastname} ({item.speciality})
                         </option>
                     )}
                 </Form.Select>
@@ -95,7 +101,7 @@ function AppointmentToDoctorPage() {
                     className={!startDateError ? "my-date-picker" : "my-date-picker-invalid"}
                     selected={startDate}
                     placeholderText="Выберите время"
-                    onChange={(date) => setStartDate(date)}
+                    onChange={changeStartDateHandler}
                     showTimeSelect
                     locale="ru"
                     minTime={setHours(setMinutes(new Date(), 0), 9)}

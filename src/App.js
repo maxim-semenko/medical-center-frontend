@@ -22,6 +22,7 @@ import Roles from "./components/tables/Roles";
 import UsersAccess from "./components/tables/UsersAccess";
 import Vaccines from "./components/tables/Vaccines";
 import Appointments from "./components/tables/Appointments";
+import EditProfileCabinetPage from "./components/pages/cabinet/EditProfileCabinetPage";
 
 function App() {
     return (
@@ -32,7 +33,7 @@ function App() {
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="/about" element={<AboutPage/>}/>
                 <Route path="/cabinet" element={<Cabinet/>}/>
-                <Route path="/cabinet/edit" element={<EditFormPatient/>}/>
+                <Route path="/cabinet/edit" element={<EditProfileCabinetPage/>}/>
                 <Route path="/cabinet/appointment-doctor" element={<AppointmentToDoctorPage/>}/>
                 <Route path="/cabinet/history" element={<DiseaseHistoryPage/>}/>
 

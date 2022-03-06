@@ -1,14 +1,55 @@
-import React from 'react';
+import React, {useState} from 'react';
 import NavigationBar from "../../../common/NavigationBar";
-import {Accordion, Button, Container} from "react-bootstrap";
+import {Accordion, Button, Col, Container, Form, Row} from "react-bootstrap";
 import Footer from "../../../common/Footer";
 import {Link} from "react-router-dom";
+import DatePicker from "react-datepicker";
 
 function AllReportsPage() {
 
+    const dataReports = [
+        {
+            name: "Отчет о наиболее частых болезнях",
+            description: "Представляет список болезней, которыми пациенты болели наибольшее количество раз."
+        },
+        {
+            name: "Отчет о вакцинации пациентов",
+            description: "Представляет список привитых пациентов и чем они привились."
+        },
+        {
+            name: "Отчет о самой рисковой группе населения по возрасту",
+            description: "Представляет список возрастных групп пациентов, которые больше всех подвержаны заболеваниям."
+        },
+        {
+            name: "Отчет о истории болезни пациента",
+            description: "Представляет список всех историй болезни выбранного пациента."
+        },
+        {
+            name: "Отчет о всех сотрудниках",
+            description: "Представляет список с информацией о всех сотрудниках."
+        },
+    ];
+
+    const [startDate, setStartDate] = useState(null)
+    const [endDate, setEndDate] = useState(null)
+
+
+    const [startDateError, setStartDateError] = useState('');
+    const [endDateError, setEndDateError] = useState('');
+
+
+    const changeStartDateHandler = (date) => {
+        setStartDate(date)
+        setStartDateError('')
+    }
+
+    const printReport = (type) => {
+
+    }
+
     const Content = () => {
         return (
-            <Container className="main-container" style={{marginBottom: "11%"}}>
+            <Container className="main-container" style={{marginBottom: "8%"}}>
                 <h1 style={{textAlign: "center", marginBottom: "15px"}}><b>Список отчетов</b></h1>
                 <hr/>
                 <Container>
@@ -17,40 +58,58 @@ function AllReportsPage() {
                             <Button variant="outline-danger" size="lg">Назад</Button>
                         </Link>
                     </div>
+                    <Form>
+                        <Row>
+                            <Col>
+                                <Form.Group className="mb-3">
+                                    <Form.Label><b>Начальная дата</b></Form.Label>
+                                    <br/>
+                                    <DatePicker
+                                        className={!startDateError ? "my-date-picker" : "my-date-picker-invalid"}
+                                        selected={startDate}
+                                        placeholderText="Выберите начальную дату"
+                                        onChange={changeStartDateHandler}
+                                        locale="ru"
+                                        dateFormat="dd/MM/yyyy"
+                                    />
+                                    <p className="text-error"
+                                       style={{visibility: startDateError ? 'visible' : 'hidden'}}>{startDateError}</p>
+                                    <Form.Control.Feedback type='invalid'>{startDateError}</Form.Control.Feedback>
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                                <Form.Group className="mb-3">
+                                    <Form.Label><b>Конечная дата</b></Form.Label>
+                                    <br/>
+                                    <DatePicker
+                                        className={!startDateError ? "my-date-picker" : "my-date-picker-invalid"}
+                                        selected={startDate}
+                                        placeholderText="Выберите конечную дату"
+                                        onChange={changeStartDateHandler}
+                                        locale="ru"
+                                        dateFormat="dd/MM/yyyy"
+                                    />
+                                    <p className="text-error"
+                                       style={{visibility: startDateError ? 'visible' : 'hidden'}}>{startDateError}</p>
+                                    <Form.Control.Feedback type='invalid'>{startDateError}</Form.Control.Feedback>
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                    </Form>
                     <Accordion>
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header><b>Отчет о наиболее частых болезнях</b></Accordion.Header>
-                            <Accordion.Body>
-                                Описание: Представляет список болезней, которыми пациенты болели наибольшее количество
-                                раз.
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="1">
-                            <Accordion.Header><b>Отчет о вакцинации пациентов</b></Accordion.Header>
-                            <Accordion.Body>
-                                Описание: Представляет список привитых пациентов и чем они привились.
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="2">
-                            <Accordion.Header><b>Отчет о самой рисковой группе населения по
-                                возрасту</b></Accordion.Header>
-                            <Accordion.Body>
-                                Описание: Представляет список возрастных групп пациентов, которые больше всех
-                                подвержаны заболеваниям.
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="3">
-                            <Accordion.Header><b>Отчет о истории болезни пациента</b></Accordion.Header>
-                            <Accordion.Body>
-                                Описание: Представляет список всех историй болезни выбранного пациента.
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="4">
-                            <Accordion.Header><b>Отчет о всех сотрудниках</b></Accordion.Header>
-                            <Accordion.Body>
-                                Описание: Представляет список с информацией о всех сотрудниках.
-                            </Accordion.Body>
-                        </Accordion.Item>
+                        {
+                            dataReports.map((report, index) =>
+                                <Accordion.Item eventKey={index}>
+                                    <Accordion.Header><b>{report.name}</b></Accordion.Header>
+                                    <Accordion.Body>
+                                        <div>Описание: {report.description}</div>
+                                        <Button variant="outline-primary" size="sm">Печать (pdf)</Button>{' '}
+                                        <Button variant="outline-primary" size="sm">Печать (excel)</Button>{' '}
+                                        <Button variant="outline-primary" size="sm">Печать (csv)</Button>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            )
+                        }
                     </Accordion>
                 </Container>
             </Container>

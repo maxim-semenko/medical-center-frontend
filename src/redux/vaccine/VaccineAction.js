@@ -84,7 +84,7 @@ export function createVaccine(vaccine) {
         return new Promise((resolve, reject) => {
             VaccineService.create(vaccine)
                 .then((response) => {
-                    dispatch(createdVaccineSuccess(vaccine))
+                    dispatch(createdVaccineSuccess(response.data))
                     console.log(response)
                     return resolve(response);
                 })

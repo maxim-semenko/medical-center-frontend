@@ -94,7 +94,7 @@ function CreateUpdateVaccineModal(props) {
                 <Modal.Header closeButton>
                     <Modal.Title><b>{props.mode === "create" ? "Добавить вакцину" : "Изменить вакцину"}</b></Modal.Title>
                 </Modal.Header>
-                <Modal.Body className="modal-dark">
+                <Modal.Body>
                     {
                         props.mode === "update" && loadingVaccine ?
                             <div>loading...</div>

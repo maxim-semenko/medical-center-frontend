@@ -127,7 +127,7 @@ function SignUpModal(props) {
             <Modal.Header closeButton>
                 <Modal.Title>Регистрация</Modal.Title>
             </Modal.Header>
-            <Modal.Body className="modal-dark">
+            <Modal.Body>
                 {/*<CSSTransition in={showErrorSignUp} classNames="my-node" timeout={100} unmountOnExit>*/}
                 {/*    <Alert variant="danger" onClose={() => setShowErrorSignUp(false)} dismissible>*/}
                 {/*        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>*/}

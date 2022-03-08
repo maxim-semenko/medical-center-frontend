@@ -107,7 +107,7 @@ function SignInModal(props) {
             <Modal.Header closeButton>
                 <Modal.Title>Авторизация</Modal.Title>
             </Modal.Header>
-            <Modal.Body className="modal-dark">
+            <Modal.Body>
                 <CSSTransition in={showError} classNames="my-node" timeout={100} unmountOnExit>
                     <Alert variant="danger" onClose={() => setShowError(false)} dismissible>
                         <Alert.Heading>Oh snap! You got an error!</Alert.Heading>

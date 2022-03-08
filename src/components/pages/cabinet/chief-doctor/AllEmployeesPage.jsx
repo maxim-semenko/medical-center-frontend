@@ -27,11 +27,10 @@ function AllEmployeesPage() {
                 <Table striped bordered hover style={{textAlign: "center"}}>
                     <thead>
                     <tr>
-                        <th>Номер</th>
-                        <th>Имя</th>
-                        <th>Фамилия</th>
-                        <th>Почта</th>
-                        <th>Кваллификация</th>
+                        <th width="5%">Номер</th>
+                        <th width="35%">Имя</th>
+                        <th width="35%">Фамилия</th>
+                        <th width="25%">Кваллификация</th>
                     </tr>
                     </thead>
                     {
@@ -43,7 +42,6 @@ function AllEmployeesPage() {
                                     <td><b>{employee.firstname}</b></td>
                                     <td><b>{employee.lastname}</b></td>
                                     <td><b>{employee.speciality}</b></td>
-                                    <td><b>{employee.roleId}</b></td>
                                 </tr>
                             )
                         }

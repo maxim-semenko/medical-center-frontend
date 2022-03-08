@@ -4,24 +4,23 @@ import {Route, Routes} from "react-router-dom";
 import HomePage from "./components/pages/view/HomePage";
 import AboutPage from "./components/pages/view/AboutPage";
 import Cabinet from "./components/pages/cabinet/Cabinet";
-import AppointmentToDoctorPage from "./components/pages/cabinet/patient/AppointmentToDoctorPage";
-import EditFormPatient from "./components/pages/cabinet/EditFormPatient";
+import AllAppointmentsPage from "./components/pages/cabinet/patient/appointment/AllAppointmentsPage";
 import DiseaseHistoryPage from "./components/pages/cabinet/patient/DiseaseHistoryPage";
 import ChiefDoctorPage from "./components/pages/cabinet/chief-doctor/ChiefDoctorPage";
 import AllReportsPage from "./components/pages/cabinet/chief-doctor/AllReportsPage";
 import AllEmployeesPage from "./components/pages/cabinet/chief-doctor/AllEmployeesPage";
 import AllVaccinesPage from "./components/pages/cabinet/chief-doctor/vaccine/AllVaccinesPage";
 import DoctorPage from "./components/pages/cabinet/doctor/DoctorPage";
-import AllPatientsPage from "./components/pages/cabinet/doctor/AllPatientsPage";
-import Users from "./components/tables/Users";
+import AllMedicalCardsPage from "./components/pages/cabinet/doctor/AllMedicalCardsPage";
+import Users from "./components/tables/user/Users";
 import Main from "./components/tables/Main";
-import Diseases from "./components/tables/Diseases";
-import Employees from "./components/tables/Employees";
-import MedicalCards from "./components/tables/MedicalCards";
-import Roles from "./components/tables/Roles";
+import Diseases from "./components/tables/desease/Diseases";
+import Employees from "./components/tables/employee/Employees";
+import MedicalCards from "./components/tables/medical-card/MedicalCards";
+import Roles from "./components/tables/role/Roles";
 import UsersAccess from "./components/tables/UsersAccess";
-import Vaccines from "./components/tables/Vaccines";
-import Appointments from "./components/tables/Appointments";
+import Vaccines from "./components/tables/vaccine/Vaccines";
+import Appointments from "./components/tables/appointment/Appointments";
 import EditProfileCabinetPage from "./components/pages/cabinet/EditProfileCabinetPage";
 
 function App() {
@@ -34,12 +33,12 @@ function App() {
                 <Route path="/about" element={<AboutPage/>}/>
                 <Route path="/cabinet" element={<Cabinet/>}/>
                 <Route path="/cabinet/edit" element={<EditProfileCabinetPage/>}/>
-                <Route path="/cabinet/appointment-doctor" element={<AppointmentToDoctorPage/>}/>
+                <Route path="/cabinet/appointment-doctor" element={<AllAppointmentsPage/>}/>
                 <Route path="/cabinet/history" element={<DiseaseHistoryPage/>}/>
 
                 {/* Doctor's pages */}
                 <Route path="/cabinet/doctor" element={<DoctorPage/>}/>
-                <Route path="/cabinet/doctor/all-patients" element={<AllPatientsPage/>}/>
+                <Route path="/cabinet/doctor/all-patients" element={<AllMedicalCardsPage/>}/>
 
                 {/* Chief-doctor's pages */}
                 <Route path="/cabinet/chief-doctor" element={<ChiefDoctorPage/>}/>

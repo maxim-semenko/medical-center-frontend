@@ -3,7 +3,7 @@ import axios from "axios";
 import {Button, Container, Spinner, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
-function Vaccines(props) {
+function Vaccines() {
 
     const [vaccines, setVaccines] = useState([])
 

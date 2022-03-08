@@ -46,7 +46,6 @@ const vaccineReducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 vaccines: state.vaccines.filter(item => item.vaccineId !== action.payload),
-                loading: false,
             }
         case types.SET_CURRENT_PAGE_VACCINE:
             return {

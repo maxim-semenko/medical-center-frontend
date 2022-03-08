@@ -4,12 +4,12 @@ import {Button, Container, Table} from "react-bootstrap";
 import Footer from "../../../common/Footer";
 import {Link} from "react-router-dom";
 
-function AllPatientsPage() {
+function AllMedicalCardsPage() {
 
     const Content = () => {
         return (
             <Container className="main-container" style={{marginBottom: "10%"}}>
-                <h1 style={{textAlign: "center", marginBottom: "15px"}}><b>Список пациентов</b></h1>
+                <h1 style={{textAlign: "center", marginBottom: "15px"}}><b>Список медицинских карт</b></h1>
                 <hr/>
                 <Container>
                     <div style={{paddingBottom: "10px"}}>
@@ -52,4 +52,4 @@ function AllPatientsPage() {
     );
 }
 
-export default AllPatientsPage;
+export default AllMedicalCardsPage;

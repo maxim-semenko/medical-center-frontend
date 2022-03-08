@@ -7,6 +7,7 @@ import DeleteVaccineModal from "./DeleteVaccineModal";
 import CreateUpdateVaccineModal from "./CreateUpdateVaccineModal";
 import {useDispatch, useSelector} from "react-redux";
 import {findVaccineById, findVaccines} from "../../../../../redux/vaccine/VaccineAction";
+import AboutVaccineModal from "./AboutVaccineModal";
 
 function AllVaccinesPage() {
     const [isInit, setIsInit] = useState(false)
@@ -16,6 +17,7 @@ function AllVaccinesPage() {
     // const [vaccines, setVaccines] = useState([])
     const [showCreateUpdateVaccinesDialog, setShowCreateUpdateVaccinesDialog] = useState(false)
     const [showDeleteVaccinesDialog, setShowDeleteVaccinesDialog] = useState(false)
+    const [showAboutVaccinesDialog, setShowAboutVaccinesDialog] = useState(false)
     const [modeDialog, setModeDialog] = useState('')
 
     useEffect(() => {
@@ -31,8 +33,12 @@ function AllVaccinesPage() {
         setModeDialog("create")
     }
 
+    const aboutVaccine = (id) => {
+        dispatch(findVaccineById(id))
+        setShowAboutVaccinesDialog(true);
+    }
+
     const updateVaccine = (id) => {
-        console.log(id)
         dispatch(findVaccineById(id))
         setShowCreateUpdateVaccinesDialog(true);
         setModeDialog("update")
@@ -61,6 +67,14 @@ function AllVaccinesPage() {
                 />
             )
         }
+        if (showAboutVaccinesDialog) {
+            return (
+                <AboutVaccineModal
+                    show={showAboutVaccinesDialog}
+                    onHide={() => setShowAboutVaccinesDialog(false)}
+                />
+            )
+        }
     }
 
     const Content = () => {
@@ -85,7 +99,7 @@ function AllVaccinesPage() {
                                 <tr>
                                     <th width="5%">Номер</th>
                                     <th width="30%">Название</th>
-                                    <th width="45%">Описание</th>
+                                    <th width="40%">Описание</th>
                                     <th>Действие</th>
                                 </tr>
                                 </thead>
@@ -96,13 +110,18 @@ function AllVaccinesPage() {
                                             <td><b>{index + 1}</b></td>
                                             <td><b>{vaccine.name}</b></td>
                                             <td><b>{vaccine.description}</b></td>
-                                            <td><Button variant="outline-success"
+                                            <td>
+                                                <Button variant="outline-success"
                                                         onClick={() => updateVaccine(vaccine.vaccineId)}>
-                                                <b>Изменить</b>
-                                            </Button>{' '}
+                                                    <b>Изменить</b>
+                                                </Button>{' '}
                                                 <Button variant="outline-danger"
                                                         onClick={() => deleteVaccine(vaccine.vaccineId)}>
                                                     <b>Удалить</b>
+                                                </Button>{' '}
+                                                <Button variant="outline-info"
+                                                        onClick={() => aboutVaccine(vaccine.vaccineId)}>
+                                                    <b>Инфо</b>
                                                 </Button>
                                             </td>
                                         </tr>

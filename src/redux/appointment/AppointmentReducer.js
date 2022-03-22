@@ -5,11 +5,6 @@ const initialState = {
     appointment: null,
     loadingAppointments: true,
     loadingAppointment: true,
-    currentPage: 1,
-    sizePage: 5,
-    totalElements: 0,
-    totalPages: 0,
-    numberOfElements: 0,
 }
 
 const appointmentReducer = (state = initialState, action = {}) => {
@@ -18,9 +13,6 @@ const appointmentReducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 appointments: action.payload,
-                // totalElements: action.payload.totalElements,
-                // totalPages: action.payload.totalPages,
-                // numberOfElements: action.payload.numberOfElements,
                 loadingAppointments: false,
             }
         case types.GET_APPOINTMENT:
@@ -35,7 +27,7 @@ const appointmentReducer = (state = initialState, action = {}) => {
                 appointments: [...state.appointments, action.payload]
             }
         case types.UPDATE_APPOINTMENT:
-            const objIndex = state.appointments.findIndex((item => item.appointmentId === action.payload.appointmentId));
+            const objIndex = state.appointments.findIndex((item => item.id === action.payload.id));
             let updatedAppointments = state.appointments;
             updatedAppointments[objIndex] = action.payload
             return {
@@ -46,16 +38,6 @@ const appointmentReducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 appointments: state.appointments.filter(item => item.id !== action.payload),
-            }
-        case types.SET_CURRENT_PAGE_APPOINTMENT:
-            return {
-                ...state,
-                currentPage: action.payload
-            }
-        case types.SET_SIZE_PAGE_APPOINTMENT:
-            return {
-                ...state,
-                sizePage: action.payload
             }
         case types.SET_LOADING_APPOINTMENTS:
             return {

@@ -22,6 +22,12 @@ class MedicalCardService {
         return axios.get(`${API_URL}/users/${userId}`)
     }
 
+    async findAllByEmployeeId(page = 0, size = 0, employeeId) {
+        console.log(API_URL)
+        // const params = new URLSearchParams([['page', (page - 1)], ['size', size], ['sort', 'name']]);
+        return axios.get(`${API_URL}/employees/${employeeId}`)
+    }
+
     async create(request) {
         return axios.post(API_URL, request)
     }

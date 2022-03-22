@@ -14,7 +14,7 @@ function EditProfilePatientCabinetPage() {
                 <hr/>
                 <Container>
                     <div style={{paddingBottom: "25px"}}>
-                        <Link to="/cabinet"><Button variant="outline-danger" size="lg">Назад</Button></Link>
+                        <Link to="/cabinet"><Button variant="outline-danger" size="lg"><b>Назад</b></Button></Link>
                     </div>
                     <EditFormPatient/>
                 </Container>

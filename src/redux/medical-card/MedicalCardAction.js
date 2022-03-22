@@ -1,6 +1,5 @@
 import * as types from "./MedicalCardActionType"
 import MedicalCardService from "../../service/MedicalCardService";
-import AppointmentService from "../../service/AppointmentService";
 import {setLoadingAppointments} from "../appointment/AppointmentAction";
 
 const gotMedicalCardsSuccess = (medicalCards) => ({
@@ -27,16 +26,6 @@ const deletedMedicalCardSuccess = (id) => ({
     type: types.DELETE_MEDICAL_CARD,
     payload: id,
 })
-
-// export const setCurrentPage = (page) => ({
-//     type: types.SET_CURRENT_PAGE_APPOINTMENT,
-//     payload: page
-// })
-//
-// export const setSizePage = (size) => ({
-//     type: types.SET_SIZE_PAGE_APPOINTMENT,
-//     payload: size
-// })
 
 export const setLoadingMedicalCards = (loading) => ({
     type: types.SET_LOADING_MEDICAL_CARDS,
@@ -85,6 +74,21 @@ export const findMedicalCardsByUserId = (currentPage = 0, sizePage = 0, userId) 
     return function (dispatch) {
         dispatch(setLoadingAppointments(true))
         MedicalCardService.findAllByUserId(currentPage, sizePage, userId)
+            .then((resp) => {
+                dispatch(gotMedicalCardsSuccess(resp.data))
+                console.log(resp.data)
+            })
+            .catch(error => {
+                dispatch(setLoadingAppointments(false))
+                console.log(error)
+            })
+    }
+}
+
+export const findMedicalCardsByEmployeeId = (currentPage = 0, sizePage = 0, employeeId) => {
+    return function (dispatch) {
+        dispatch(setLoadingAppointments(true))
+        MedicalCardService.findAllByEmployeeId(currentPage, sizePage, employeeId)
             .then((resp) => {
                 dispatch(gotMedicalCardsSuccess(resp.data))
                 console.log(resp.data)

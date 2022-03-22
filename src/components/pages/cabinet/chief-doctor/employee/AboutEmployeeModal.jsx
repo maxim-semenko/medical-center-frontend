@@ -1,10 +1,9 @@
 import {useSelector} from "react-redux";
 import {Button, Modal} from "react-bootstrap";
 import React from "react";
-import Moment from "moment";
 
-function AboutAppointmentModal(props) {
-    const {appointment, loadingAppointment,} = useSelector(state => state.appointmentDate)
+function AboutEmployeeModal(props) {
+    const {employee, loadingEmployee} = useSelector(state => state.employeeDate)
 
     const getFullEmployeeName = (employee) => {
         return employee.firstname + " " + employee.lastname + " (" + employee.speciality + ")"
@@ -17,20 +16,17 @@ function AboutAppointmentModal(props) {
                   aria-labelledby="example-custom-modal-styling-title"
                   className="special_modal">
                 <Modal.Header closeButton>
-                    <Modal.Title><b>Информация о записи к врачу</b></Modal.Title>
+                    <Modal.Title><b>Информация о сотруднике</b></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {
-                        loadingAppointment ?
+                        loadingEmployee ?
                             <div>loading...</div>
                             :
                             <div>
-                                <p><b>Пациент: </b>{appointment.userEntity.firstname} {appointment.userEntity.lastname}
-                                </p>
-                                <p><b>Врач: </b>{getFullEmployeeName(appointment.employee)}</p>
-                                <p><b>Начало приема: </b>{Moment(appointment.startDate).locale('ru').format('LLL')}</p>
-                                <p><b>Конец приема: </b>{Moment(appointment.endDate).locale('ru').format('LLL')}</p>
-                                <p><b>Описание: </b>{appointment.description}</p>
+                                <p><b>Имя: </b>{employee.firstname}</p>
+                                <p><b>Фамилия: </b>{employee.lastname}</p>
+                                <p><b>Квалиффикация: </b>{employee.speciality}</p>
                             </div>
                     }
                 </Modal.Body>
@@ -42,4 +38,4 @@ function AboutAppointmentModal(props) {
     );
 }
 
-export default AboutAppointmentModal
+export default AboutEmployeeModal

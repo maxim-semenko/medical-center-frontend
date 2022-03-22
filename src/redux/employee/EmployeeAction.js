@@ -1,5 +1,4 @@
 import * as types from "./EmployeeActionType"
-import VaccineService from "../../service/EmployeeService";
 import EmployeeService from "../../service/EmployeeService";
 
 const gotEmployeesSuccess = (employees) => ({
@@ -10,16 +9,6 @@ const gotEmployeesSuccess = (employees) => ({
 const gotEmployeeSuccess = (employee) => ({
     type: types.GET_EMPLOYEE,
     payload: employee,
-})
-
-export const setCurrentPage = (page) => ({
-    type: types.SET_CURRENT_PAGE_EMPLOYEE,
-    payload: page
-})
-
-export const setSizePage = (size) => ({
-    type: types.SET_SIZE_PAGE_EMPLOYEE,
-    payload: size
 })
 
 export const setLoadingEmployees = (loading) => ({
@@ -52,14 +41,14 @@ export const findEmployees = (currentPage = 0, sizePage = 0) => {
 export const findEmployeeById = (id) => {
     return function (dispatch) {
         dispatch(setLoadingEmployee(true))
-        VaccineService.findById(id)
+        EmployeeService.findById(id)
             .then((resp) => {
-                console.log(resp.data)
                 dispatch(gotEmployeeSuccess(resp.data))
+                console.log(resp.data)
             })
             .catch(error => {
-                console.log(error)
                 dispatch(setLoadingEmployee(false))
+                console.log(error)
             })
     }
 }

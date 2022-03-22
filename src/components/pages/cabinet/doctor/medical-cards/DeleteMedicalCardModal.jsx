@@ -1,26 +1,24 @@
-import React from 'react';
-import {Button, Modal} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteVaccineById} from "../../../../../redux/vaccine/VaccineAction";
+import {Button, Modal} from "react-bootstrap";
+import React from "react";
 import {toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
+import {deleteMedicalCardById} from "../../../../../redux/medical-card/MedicalCardAction";
 
-function DeleteVaccineModal(props) {
+function DeleteMedicalCardModal(props) {
+
     const dispatch = useDispatch()
-    const {vaccine, loadingVaccine} = useSelector(state => state.vaccineDate)
+    const {medicalCard, loadingMedicalCard} = useSelector(state => state.medicalCardDate)
 
     const handleSubmit = () => {
-        dispatch(deleteVaccineById(vaccine.id))
+        dispatch(deleteMedicalCardById(medicalCard.id))
             .then(() => {
-                notifySuccess('Вакцина была успешно удалена!')
+                notifySuccess('Мед-карта была успешно удалена!')
                 props.onHide()
             })
             .catch(() => {
-                notifyError('Произошла ошибка при удалении вакцины!')
+                notifyError('Произошла ошибка при удалении мед-карты!')
             });
-    }
-
-    const closeModal = () => {
-        props.onHide()
     }
 
     const notifyError = (text) => toast.error(text, {
@@ -33,6 +31,10 @@ function DeleteVaccineModal(props) {
         position: "top-right",
     });
 
+    const getFullEmployeeName = (employee) => {
+        return employee.firstname + " " + employee.lastname + " (" + employee.speciality + ")"
+    }
+
     toast.configure()
     return (
         <div>
@@ -41,21 +43,21 @@ function DeleteVaccineModal(props) {
                   aria-labelledby="example-custom-modal-styling-title"
                   className="special_modal">
                 <Modal.Header closeButton>
-                    <Modal.Title><b>Удаление вакцины</b></Modal.Title>
+                    <Modal.Title><b>Удаление мед-карты</b></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {
-                        loadingVaccine ?
+                        loadingMedicalCard ?
                             <div>loading...</div>
                             :
                             <div>
-                                <p>Вы уверены, что хотите удалить эту вакцину?</p>
-                                <p>Название: {vaccine.name}</p>
+                                <p>Вы уверены, что хотите удалить эту мед-карту?</p>
+                                <p>Пациент: {medicalCard.user.firstname} {medicalCard.user.lastname}</p>
                             </div>
                     }
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="outline-success" onClick={closeModal}>Закрыть</Button>
+                    <Button variant="outline-success" onClick={() => props.onHide()}>Закрыть</Button>
                     <Button variant={"outline-danger"} type="submit" onClick={handleSubmit}>Удалить</Button>
                 </Modal.Footer>
             </Modal>
@@ -63,4 +65,4 @@ function DeleteVaccineModal(props) {
     );
 }
 
-export default DeleteVaccineModal;
+export default DeleteMedicalCardModal

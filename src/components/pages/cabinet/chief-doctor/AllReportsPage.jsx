@@ -4,6 +4,10 @@ import {Accordion, Button, Col, Container, Form, Row} from "react-bootstrap";
 import Footer from "../../../common/Footer";
 import {Link} from "react-router-dom";
 import DatePicker from "react-datepicker";
+import axios from "axios";
+import {saveAs} from 'file-saver';
+
+const FileDownload = require('js-file-download');
 
 function AllReportsPage() {
 
@@ -43,8 +47,35 @@ function AllReportsPage() {
         setStartDateError('')
     }
 
-    const printReport = (type) => {
 
+    const printReportCSV = (type) => {
+        axios.get("/api/v1/employees/test/report-csv", {
+            headers: {
+                'Content-Type': 'text/csv',
+            },
+        })
+            .then(resp => {
+                let csvData = "\uFEFF" + resp.data
+                saveAs(new Blob([csvData]), 'Сотрудники.csv');
+            });
+    }
+
+    const printReportExcel = (type) => {
+        axios.get("/api/v1/employees/test/report-excel", {
+            responseType: 'blob'
+        })
+            .then(resp => {
+                saveAs(new Blob([resp.data]), 'Сотрудники.xlsx');
+            });
+    }
+
+    const printReportPdf = (type) => {
+        axios.get("/api/v1/employees/test/report-pdf", {
+            responseType: 'blob'
+        })
+            .then(resp => {
+                saveAs(new Blob([resp.data]), 'Сотрудники.pdf');
+            });
     }
 
     const Content = () => {
@@ -56,7 +87,10 @@ function AllReportsPage() {
                     <div style={{paddingBottom: "10px"}}>
                         <Link to="/cabinet/chief-doctor">
                             <Button variant="outline-danger" size="lg">Назад</Button>
-                        </Link>
+                        </Link>{' '}
+                        <Button variant="outline-info" size="lg" onClick={() => printReportCSV("a")}>CSV</Button>
+                        <Button variant="outline-info" size="lg" onClick={() => printReportExcel("a")}>EXCEL</Button>
+                        <Button variant="outline-info" size="lg" onClick={() => printReportPdf("a")}>PDF</Button>
                     </div>
                     <Form>
                         <Row>

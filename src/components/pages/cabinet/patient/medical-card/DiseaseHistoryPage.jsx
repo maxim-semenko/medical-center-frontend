@@ -1,24 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import NavigationBar from "../../../common/NavigationBar";
+import NavigationBar from "../../../../common/NavigationBar";
 import {Button, Container, Spinner, Table} from "react-bootstrap";
-import Footer from "../../../common/Footer";
+import Footer from "../../../../common/Footer";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {findMedicalCardsByUserId} from "../../../../redux/medical-card/MedicalCardAction";
+import {findMedicalCardById, findMedicalCardsByUserId} from "../../../../../redux/medical-card/MedicalCardAction";
 import Moment from "moment";
+import AboutMedicalCardModal from "../../doctor/medical-cards/AboutMedicalCardModal";
 
 function DiseaseHistoryPage() {
 
     const [isInit, setIsInit] = useState(false)
     const dispatch = useDispatch()
-    const {
-        medicalCards,
-        loadingMedicalCards,
-        currentPage,
-        sizePage,
-        totalElements
-    } = useSelector(state => state.medicalCardDate)
+    const {medicalCards, loadingMedicalCards} = useSelector(state => state.medicalCardDate)
 
+    const [showAboutMedicalCardDialog, setShowAboutMedicalCardDialog] = useState(false)
 
     // Пусть в системе пользователь с id = 1
     const userId = JSON.parse(localStorage.getItem("currentUser")).id;
@@ -30,6 +26,10 @@ function DiseaseHistoryPage() {
         }
     }, [isInit])
 
+    const aboutMedicalCard = (id) => {
+        dispatch(findMedicalCardById(id))
+        setShowAboutMedicalCardDialog(true);
+    }
 
     const getFullEmployeeName = (employee) => {
         return employee.firstname + " " + employee.lastname + " (" + employee.speciality + ")"
@@ -47,42 +47,29 @@ function DiseaseHistoryPage() {
                         <th>Врач</th>
                         <th>Начало</th>
                         <th>Конец</th>
-                        <th>Описание</th>
-                        <th>Реабилитация</th>
-                        <th>Подтверждение</th>
                         <th>Болезнь</th>
+                        <th>Действие</th>
                     </tr>
                     </thead>
+                    <tbody>
                     {
-                        loadingMedicalCards ?
-                            <div style={{textAlign: "center"}}>
-                                    <span style={{paddingTop: "0.3%", paddingLeft: "35%", position: "absolute"}}>
-                                        <Spinner animation="border"/>
-                                    </span>
-                            </div>
-                            :
-                            <tbody>
-                            {
-                                medicalCards.map((medicalCard, index) =>
-                                    <tr key={index}>
-                                        <td><b>{index + 1}</b></td>
-                                        <td><b>{getFullEmployeeName(medicalCard.employee)}</b></td>
-                                        <td><b>{Moment(medicalCard.startDate).locale('ru').format('LLL')}</b></td>
-                                        <td><b>{Moment(medicalCard.endDate).locale('ru').format('LLL')}</b></td>
-                                        <td><b>{medicalCard.description}</b></td>
-                                        <td><b>{medicalCard.isRehabilitation ? 'да' : 'нет'}</b></td>
-                                        <td><b>{medicalCard.isConfirmation ? 'да' : 'нет'}</b></td>
-                                        <td><b>{medicalCard.diseaseId}</b></td>
-                                    </tr>
-                                )
-                            }
-                            </tbody>
+                        medicalCards.map((medicalCard, index) =>
+                            <tr key={index}>
+                                <td><b>{index + 1}</b></td>
+                                <td><b>{getFullEmployeeName(medicalCard.employee)}</b></td>
+                                <td><b>{Moment(medicalCard.startDate).locale('ru').format('LLL')}</b></td>
+                                <td><b>{Moment(medicalCard.endDate).locale('ru').format('LLL')}</b></td>
+                                <td><b>{medicalCard.disease.name}</b></td>
+                                <td><Button variant="outline-info"
+                                            onClick={() => aboutMedicalCard(medicalCard.id)}>Инфо</Button></td>
+                            </tr>
+                        )
                     }
+                    </tbody>
                 </Table>
             )
         }
     }
-
 
     const Content = () => {
         return (
@@ -99,8 +86,20 @@ function DiseaseHistoryPage() {
         )
     }
 
+    const showDialogs = () => {
+        if (showAboutMedicalCardDialog) {
+            return (
+                <AboutMedicalCardModal
+                    show={showAboutMedicalCardDialog}
+                    onHide={() => setShowAboutMedicalCardDialog(false)}
+                />
+            )
+        }
+    }
+
     return (
         <div>
+            {showDialogs()}
             <NavigationBar/>
             <Content/>
             <Footer/>

@@ -26,16 +26,6 @@ const deletedVaccineSuccess = (id) => ({
     payload: id,
 })
 
-export const setCurrentPage = (page) => ({
-    type: types.SET_CURRENT_PAGE_VACCINE,
-    payload: page
-})
-
-export const setSizePage = (size) => ({
-    type: types.SET_SIZE_PAGE_VACCINE,
-    payload: size
-})
-
 export const setLoadingVaccines = (loading) => ({
     type: types.SET_LOADING_VACCINES,
     payload: loading

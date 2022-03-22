@@ -5,11 +5,6 @@ const initialState = {
     employee: null,
     loadingEmployees: true,
     loadingEmployee: true,
-    currentPage: 1,
-    sizePage: 5,
-    totalElements: 0,
-    totalPages: 0,
-    numberOfElements: 0,
 }
 
 const employeeReducer = (state = initialState, action = {}) => {
@@ -18,9 +13,6 @@ const employeeReducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 employees: action.payload,
-                // totalElements: action.payload.totalElements,
-                // totalPages: action.payload.totalPages,
-                // numberOfElements: action.payload.numberOfElements,
                 loadingEmployees: false,
             }
         case types.GET_EMPLOYEE:

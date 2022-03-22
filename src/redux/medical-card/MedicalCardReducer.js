@@ -5,11 +5,6 @@ const initialState = {
     medicalCard: null,
     loadingMedicalCards: true,
     loadingMedicalCard: true,
-    currentPage: 1,
-    sizePage: 5,
-    totalElements: 0,
-    totalPages: 0,
-    numberOfElements: 0,
 }
 
 const medicalCardReducer = (state = initialState, action = {}) => {
@@ -18,9 +13,6 @@ const medicalCardReducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 medicalCards: action.payload,
-                // totalElements: action.payload.totalElements,
-                // totalPages: action.payload.totalPages,
-                // numberOfElements: action.payload.numberOfElements,
                 loadingMedicalCards: false,
             }
         case types.GET_MEDICAL_CARD:
@@ -47,25 +39,15 @@ const medicalCardReducer = (state = initialState, action = {}) => {
                 ...state,
                 medicalCards: state.medicalCards.filter(item => item.id !== action.payload),
             }
-        case types.SET_CURRENT_PAGE_MEDICAL_CARD:
-            return {
-                ...state,
-                currentPage: action.payload
-            }
-        case types.SET_SIZE_PAGE_MEDICAL_CARD:
-            return {
-                ...state,
-                sizePage: action.payload
-            }
         case types.SET_LOADING_MEDICAL_CARDS:
             return {
                 ...state,
-                medicalCards: action.payload
+                loadingMedicalCards: action.payload
             }
         case types.SET_LOADING_MEDICAL_CARD:
             return {
                 ...state,
-                loadingEmployee: action.payload
+                loadingMedicalCard: action.payload
             }
         default:
             return state

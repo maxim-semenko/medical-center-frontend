@@ -21,7 +21,7 @@ function CreateUpdateVaccineModal(props) {
 
     useEffect(() => {
         if (props.mode === "update" && !loadingVaccine) {
-            setId(vaccine.vaccineId)
+            setId(vaccine.id)
             setName(vaccine.name)
             setDescription(vaccine.description)
         }
@@ -39,11 +39,11 @@ function CreateUpdateVaccineModal(props) {
     }
 
     const handleSubmit = () => {
-        let request = {
-            name: name,
-            description: description,
-        }
-        if (!findErrors(request)) {
+        if (!findErrors()) {
+            let request = {
+                name: name,
+                description: description,
+            }
             if (props.mode === "create") {
                 dispatch(createVaccine(request))
                     .then(() => {
@@ -67,11 +67,17 @@ function CreateUpdateVaccineModal(props) {
     const findErrors = (request) => {
         let errors = false
 
+        if (name.length === 0) {
+            setNameError("Название не может быть пустым!")
+            errors = true;
+        }
+
+        if (description.length === 0) {
+            setDescriptionError("Описание не может быть пустым!")
+            errors = true;
+        }
+
         return errors
-    }
-
-    const showContext = () => {
-
     }
 
     const notifyError = (text) => toast.error(text, {

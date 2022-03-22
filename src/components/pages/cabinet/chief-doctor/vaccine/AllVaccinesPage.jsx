@@ -12,9 +12,8 @@ import AboutVaccineModal from "./AboutVaccineModal";
 function AllVaccinesPage() {
     const [isInit, setIsInit] = useState(false)
     const dispatch = useDispatch()
-    const {vaccines, loadingVaccines, currentPage, sizePage, totalElements} = useSelector(state => state.vaccineDate)
+    const {vaccines, loadingVaccines} = useSelector(state => state.vaccineDate)
 
-    // const [vaccines, setVaccines] = useState([])
     const [showCreateUpdateVaccinesDialog, setShowCreateUpdateVaccinesDialog] = useState(false)
     const [showDeleteVaccinesDialog, setShowDeleteVaccinesDialog] = useState(false)
     const [showAboutVaccinesDialog, setShowAboutVaccinesDialog] = useState(false)
@@ -112,15 +111,15 @@ function AllVaccinesPage() {
                                             <td><b>{vaccine.description}</b></td>
                                             <td>
                                                 <Button variant="outline-success"
-                                                        onClick={() => updateVaccine(vaccine.vaccineId)}>
+                                                        onClick={() => updateVaccine(vaccine.id)}>
                                                     <b>Изменить</b>
                                                 </Button>{' '}
                                                 <Button variant="outline-danger"
-                                                        onClick={() => deleteVaccine(vaccine.vaccineId)}>
+                                                        onClick={() => deleteVaccine(vaccine.id)}>
                                                     <b>Удалить</b>
                                                 </Button>{' '}
                                                 <Button variant="outline-info"
-                                                        onClick={() => aboutVaccine(vaccine.vaccineId)}>
+                                                        onClick={() => aboutVaccine(vaccine.id)}>
                                                     <b>Инфо</b>
                                                 </Button>
                                             </td>

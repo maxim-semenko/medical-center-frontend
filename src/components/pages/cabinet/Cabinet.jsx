@@ -12,21 +12,28 @@ function Cabinet() {
 
     useEffect(() => {
         // ЗАГЛУШКА!!!!
-        axios.get("/api/v1/users/1")
-            .then(resp => {
-                console.log(resp)
-                setUser(resp.data)
-                localStorage.setItem("currentUser", JSON.stringify(resp.data))
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        if (localStorage.getItem("currentUser") === null) {
+            axios.get("/api/v1/users/1")
+                .then(resp => {
+                    console.log(resp)
+                    setUser(resp.data)
+                    localStorage.setItem("currentUser", JSON.stringify(resp.data))
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        } else {
+            setUser(JSON.parse(localStorage.getItem("currentUser")));
+        }
     }, [])
 
     const Content = () => {
         if (user !== null) {
             return (
                 <Container className="main-container" style={{marginBottom: "4%"}}>
+                    <Link to="doctor" className="my-link"><h1>Врач</h1></Link>
+                    <hr/>
+                    <Link to="chief-doctor" className="my-link"><h1>Глав-врач</h1></Link>
                     <h1 style={{textAlign: "center", marginBottom: "15px"}}><b>Ваш кабинет</b></h1>
                     <hr/>
                     <Container>
@@ -35,9 +42,9 @@ function Cabinet() {
                                 <p><b>Имя: </b>{user.firstname}</p>
                                 <p><b>Фамилия: </b>{user.lastname}</p>
                                 <p><b>Почта: </b></p>
-                                <p><b>Паспорт: </b></p>
-                                <p><b>Возраст: </b></p>
-                                <p><b>Группа крови: </b></p>
+                                <p><b>Паспорт: </b>{user.passport}</p>
+                                <p><b>Возраст: </b>{user.age}</p>
+                                <p><b>Группа крови: </b>{user.bloodType}</p>
                                 <Link to="/cabinet/edit">
                                     <Button variant="outline-primary" size="lg"><b>Редактировать</b></Button>
                                 </Link>

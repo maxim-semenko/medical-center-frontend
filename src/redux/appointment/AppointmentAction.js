@@ -1,5 +1,4 @@
 import * as types from "./AppointmentActionType"
-import VaccineService from "../../service/AppointmentService";
 import AppointmentService from "../../service/AppointmentService";
 
 const gotAppointmentsSuccess = (appointment) => ({
@@ -26,16 +25,6 @@ const deletedAppointmentSuccess = (id) => ({
     type: types.DELETE_APPOINTMENT,
     payload: id,
 })
-
-// export const setCurrentPage = (page) => ({
-//     type: types.SET_CURRENT_PAGE_APPOINTMENT,
-//     payload: page
-// })
-//
-// export const setSizePage = (size) => ({
-//     type: types.SET_SIZE_PAGE_APPOINTMENT,
-//     payload: size
-// })
 
 export const setLoadingAppointment = (loading) => ({
     type: types.SET_LOADING_APPOINTMENT,
@@ -68,6 +57,21 @@ export const findAppointmentsByUserId = (currentPage = 0, sizePage = 0, userId) 
     return function (dispatch) {
         dispatch(setLoadingAppointments(true))
         AppointmentService.findAllByUserId(currentPage, sizePage, userId)
+            .then((resp) => {
+                dispatch(gotAppointmentsSuccess(resp.data))
+                console.log(resp.data)
+            })
+            .catch(error => {
+                dispatch(setLoadingAppointments(false))
+                console.log(error)
+            })
+    }
+}
+
+export const findAppointmentsByEmployeeId = (currentPage = 0, sizePage = 0, employeeId) => {
+    return function (dispatch) {
+        dispatch(setLoadingAppointments(true))
+        AppointmentService.findAllByEmployeeId(currentPage, sizePage, employeeId)
             .then((resp) => {
                 dispatch(gotAppointmentsSuccess(resp.data))
                 console.log(resp.data)

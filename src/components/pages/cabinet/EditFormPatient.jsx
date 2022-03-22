@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
-import {Col, Form, Row} from "react-bootstrap";
+import React, {useEffect, useState} from 'react';
+import {Button, Col, Form, Row} from "react-bootstrap";
 
 function EditFormPatient() {
 
     // Form's values
-    const [password, setPassword] = useState('')
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
     const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const [passport, setPassport] = useState('')
     const [bloodType, setBloodType] = useState('')
     const [age, setAge] = useState(0)
@@ -16,7 +16,6 @@ function EditFormPatient() {
     const [firstnameError, setFirstnameError] = useState('')
     const [lastnameError, setLastnameError] = useState('')
     const [emailError, setEmailError] = useState('')
-    const [passwordError, setPasswordError] = useState('')
     const [passportError, setPassportError] = useState('')
     const [bloodTypeError, setBloodTypeError] = useState('')
     const [ageError, setAgeError] = useState('')
@@ -28,10 +27,16 @@ function EditFormPatient() {
     const [textError, setTextError] = useState(false);
 
 
-    const changePasswordHandler = (event) => {
-        setPassword(event.target.value)
-        setPasswordError("")
-    }
+    useEffect(() => {
+        if (localStorage.getItem("currentUser") !== null) {
+            const user = JSON.parse(localStorage.getItem("currentUser"));
+            setFirstname(user.firstname)
+            setLastname(user.lastname)
+            setPassport(user.passport)
+            setBloodType(user.bloodType)
+            setAge(user.age)
+        }
+    }, [])
 
     const changeFirstnameHandler = (event) => {
         setFirstname(event.target.value)
@@ -63,14 +68,15 @@ function EditFormPatient() {
         setAgeError("")
     }
 
-    const Content = () => {
-        return (
+    return (
+        <div>
             <Form>
                 <Row>
                     <Col>
                         <Form.Group className="mb-3">
                             <Form.Label><b>Имя</b></Form.Label>
                             <Form.Control className="my-input"
+                                          value={firstname}
                                           type="text"
                                           placeholder="Введите ваше имя"
                                           autoComplete="off"
@@ -84,6 +90,7 @@ function EditFormPatient() {
                         <Form.Group className="mb-3">
                             <Form.Label><b>Фамилия</b></Form.Label>
                             <Form.Control className="my-input"
+                                          value={lastname}
                                           type="text"
                                           placeholder="Введите вашу фамилию"
                                           autoComplete="off"
@@ -99,6 +106,7 @@ function EditFormPatient() {
                         <Form.Group className="mb-3">
                             <Form.Label><b>Почта</b></Form.Label>
                             <Form.Control className="my-input"
+                                          value={email}
                                           type="email"
                                           placeholder="Введите вашу почту"
                                           autoComplete="off"
@@ -113,6 +121,7 @@ function EditFormPatient() {
                         <Form.Group className="mb-3">
                             <Form.Label><b>Номер паспорта</b></Form.Label>
                             <Form.Control className="my-input"
+                                          value={passport}
                                           type="text"
                                           placeholder="Введите ваш номер паспорта"
                                           autoComplete="off"
@@ -128,6 +137,7 @@ function EditFormPatient() {
                         <Form.Group className="mb-3">
                             <Form.Label><b>Группа крови</b></Form.Label>
                             <Form.Control className="my-input"
+                                          value={bloodType}
                                           type="text"
                                           placeholder="Введите вашу группу крови"
                                           autoComplete="off"
@@ -141,6 +151,7 @@ function EditFormPatient() {
                         <Form.Group className="mb-3">
                             <Form.Label><b>Возраст</b></Form.Label>
                             <Form.Control className="my-input"
+                                          value={age}
                                           type="number"
                                           placeholder="Введите ваш возраст"
                                           autoComplete="off"
@@ -152,12 +163,9 @@ function EditFormPatient() {
                     </Col>
                 </Row>
             </Form>
-        )
-    }
-
-    return (
-        <div>
-            <Content/>
+            <div style={{textAlign: "right"}}>
+                <Button variant="outline-success" size="lg"><b>Изменить</b></Button>
+            </div>
         </div>
     );
 }

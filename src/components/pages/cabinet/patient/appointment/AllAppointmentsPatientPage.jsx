@@ -11,16 +11,10 @@ import AboutAppointmentModal from "./AboutAppointmentModal";
 import {findAppointmentById, findAppointmentsByUserId} from "../../../../../redux/appointment/AppointmentAction";
 import Moment from "moment";
 
-function AllAppointmentsPage() {
+function AllAppointmentsPatientPage() {
     const [isInit, setIsInit] = useState(false)
     const dispatch = useDispatch()
-    const {
-        appointments,
-        loadingAppointments,
-        currentPage,
-        sizePage,
-        totalElements
-    } = useSelector(state => state.appointmentDate)
+    const {appointments, loadingAppointments} = useSelector(state => state.appointmentDate)
 
     const [showCreateUpdateAppointmentDialog, setShowCreateUpdateAppointmentDialog] = useState(false)
     const [showDeleteAppointmentDialog, setShowDeleteAppointmentDialog] = useState(false)
@@ -116,7 +110,8 @@ function AllAppointmentsPage() {
                 <Container>
                     <div style={{paddingBottom: "10px"}}>
                         <Link to="/cabinet"><Button variant="outline-danger" size="lg">Назад</Button></Link>{' '}
-                        <Button variant="outline-primary" size="lg" onClick={() => createAppointment()}>Добавить</Button>
+                        <Button variant="outline-primary" size="lg"
+                                onClick={() => createAppointment()}>Добавить</Button>
                     </div>
                     {
                         loadingAppointments ?
@@ -162,4 +157,4 @@ function AllAppointmentsPage() {
     );
 }
 
-export default AllAppointmentsPage;
+export default AllAppointmentsPatientPage;

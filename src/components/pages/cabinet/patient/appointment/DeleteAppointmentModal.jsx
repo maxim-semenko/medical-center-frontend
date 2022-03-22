@@ -14,11 +14,11 @@ function DeleteAppointmentModal(props) {
     const handleSubmit = () => {
         dispatch(deleteAppointmentById(appointment.id))
             .then(() => {
-                notifySuccess('Вакцина была успешно удалена!')
+                notifySuccess('Запись к врачу была успешно удалена!')
                 props.onHide()
             })
             .catch(() => {
-                notifyError('Произошла ошибка при удалении вакцины!')
+                notifyError('Произошла ошибка при удалении записи к врачу!')
             });
     }
 

@@ -5,11 +5,6 @@ const initialState = {
     vaccine: null,
     loadingVaccines: true,
     loadingVaccine: true,
-    currentPage: 1,
-    sizePage: 5,
-    totalElements: 0,
-    totalPages: 0,
-    numberOfElements: 0,
 }
 
 const vaccineReducer = (state = initialState, action = {}) => {
@@ -18,9 +13,6 @@ const vaccineReducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 vaccines: action.payload,
-                // totalElements: action.payload.totalElements,
-                // totalPages: action.payload.totalPages,
-                // numberOfElements: action.payload.numberOfElements,
                 loadingVaccines: false,
             }
         case types.GET_VACCINE:
@@ -35,7 +27,7 @@ const vaccineReducer = (state = initialState, action = {}) => {
                 vaccines: [...state.vaccines, action.payload]
             }
         case types.UPDATE_VACCINE:
-            const objIndex = state.vaccines.findIndex((item => item.vaccineId === action.payload.vaccineId));
+            const objIndex = state.vaccines.findIndex((item => item.id === action.payload.id));
             let updatedVaccines = state.vaccines;
             updatedVaccines[objIndex] = action.payload
             return {
@@ -45,17 +37,7 @@ const vaccineReducer = (state = initialState, action = {}) => {
         case types.DELETE_VACCINE:
             return {
                 ...state,
-                vaccines: state.vaccines.filter(item => item.vaccineId !== action.payload),
-            }
-        case types.SET_CURRENT_PAGE_VACCINE:
-            return {
-                ...state,
-                currentPage: action.payload
-            }
-        case types.SET_SIZE_PAGE_VACCINE:
-            return {
-                ...state,
-                sizePage: action.payload
+                vaccines: state.vaccines.filter(item => item.id !== action.payload),
             }
         case types.SET_LOADING_VACCINES:
             return {

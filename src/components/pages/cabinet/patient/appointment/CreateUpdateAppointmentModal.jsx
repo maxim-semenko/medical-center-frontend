@@ -48,6 +48,7 @@ function CreateUpdateAppointmentModal(props) {
 
     const findErrors = (request) => {
         let errors = false
+
         if (request.startDate === null) {
             setStartDateError("Дата и время не могут быть пустыми!")
             errors = true
@@ -85,7 +86,7 @@ function CreateUpdateAppointmentModal(props) {
     const handleSubmit = (event) => {
         event.preventDefault()
         let request = {
-            user: JSON.parse(localStorage.getItem("currentUser")),
+            userEntity: JSON.parse(localStorage.getItem("currentUser")),
             employee: employee,
             startDate: startDate,
             endDate: endDate,

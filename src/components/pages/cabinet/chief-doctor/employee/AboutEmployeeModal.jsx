@@ -26,7 +26,7 @@ function AboutEmployeeModal(props) {
                             <div>
                                 <p><b>Имя: </b>{employee.firstname}</p>
                                 <p><b>Фамилия: </b>{employee.lastname}</p>
-                                <p><b>Квалиффикация: </b>{employee.speciality}</p>
+                                <p><b>Квалификация: </b>{employee.speciality}</p>
                             </div>
                     }
                 </Modal.Body>

@@ -36,7 +36,7 @@ function AllEmployeesPage() {
                         <th width="5%">Номер</th>
                         <th width="30%">Имя</th>
                         <th width="30%">Фамилия</th>
-                        <th width="25%">Кваллификация</th>
+                        <th width="25%">Квалификация</th>
                         <th width="10%">Действие</th>
                     </tr>
                     </thead>

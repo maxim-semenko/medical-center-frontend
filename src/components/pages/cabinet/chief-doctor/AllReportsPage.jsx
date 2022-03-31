@@ -7,30 +7,39 @@ import DatePicker from "react-datepicker";
 import axios from "axios";
 import {saveAs} from 'file-saver';
 
-const FileDownload = require('js-file-download');
-
 function AllReportsPage() {
 
     const dataReports = [
         {
             name: "Отчет о наиболее частых болезнях",
-            description: "Представляет список болезней, которыми пациенты болели наибольшее количество раз."
+            description: "Представляет список болезней, которыми пациенты болели наибольшее количество раз.",
+            url: "",
+            filename: "частые_болези"
         },
         {
             name: "Отчет о вакцинации пациентов",
-            description: "Представляет список привитых пациентов и чем они привились."
+            description: "Представляет список привитых пациентов и чем они привились.",
+            url: "",
+            filename: "вакцинация_пациентов"
         },
         {
             name: "Отчет о самой рисковой группе населения по возрасту",
-            description: "Представляет список возрастных групп пациентов, которые больше всех подвержаны заболеваниям."
-        },
-        {
-            name: "Отчет о истории болезни пациента",
-            description: "Представляет список всех историй болезни выбранного пациента."
+            description: "Представляет список возрастных групп пациентов, которые больше всех подвержаны заболеваниям.",
+            url: "",
+            filename: "рисковая_группа_населения_по_возрасту"
         },
         {
             name: "Отчет о всех сотрудниках",
-            description: "Представляет список с информацией о всех сотрудниках."
+            description: "Представляет список с информацией о всех сотрудниках.",
+            url: "",
+            filename: "Сотрудники"
+        },
+        {
+            name: "Отчет о истории болезни пациента",
+            description: "Представляет список всех историй болезни выбранного пациента.",
+            url: "",
+            showInput: true,
+            filename: "история_болезни_пациента"
         },
     ];
 
@@ -47,34 +56,25 @@ function AllReportsPage() {
         setStartDateError('')
     }
 
-
-    const printReportCSV = (type) => {
-        axios.get("/api/v1/employees/test/report-csv", {
-            headers: {
-                'Content-Type': 'text/csv',
-            },
+    const getReport = (url, type) => {
+        axios.get("/api/v1/reports/report-employee", {
+            responseType: type === "csv" ? '' : 'blob',
+            params: {type: type},
         })
             .then(resp => {
-                let csvData = "\uFEFF" + resp.data
-                saveAs(new Blob([csvData]), 'Сотрудники.csv');
-            });
-    }
-
-    const printReportExcel = (type) => {
-        axios.get("/api/v1/employees/test/report-excel", {
-            responseType: 'blob'
-        })
-            .then(resp => {
-                saveAs(new Blob([resp.data]), 'Сотрудники.xlsx');
-            });
-    }
-
-    const printReportPdf = (type) => {
-        axios.get("/api/v1/employees/test/report-pdf", {
-            responseType: 'blob'
-        })
-            .then(resp => {
-                saveAs(new Blob([resp.data]), 'Сотрудники.pdf');
+                switch (type) {
+                    case "csv":
+                        saveAs(new Blob(["\uFEFF" + resp.data]), 'Сотрудники.csv');
+                        break;
+                    case "excel":
+                        saveAs(new Blob([resp.data]), 'Сотрудники.xlsx');
+                        break;
+                    case "pdf":
+                        saveAs(new Blob([resp.data]), 'Сотрудники.pdf');
+                        break
+                    default:
+                        console.log("ERROR")
+                }
             });
     }
 
@@ -88,9 +88,9 @@ function AllReportsPage() {
                         <Link to="/cabinet/chief-doctor">
                             <Button variant="outline-danger" size="lg">Назад</Button>
                         </Link>{' '}
-                        <Button variant="outline-info" size="lg" onClick={() => printReportCSV("a")}>CSV</Button>
-                        <Button variant="outline-info" size="lg" onClick={() => printReportExcel("a")}>EXCEL</Button>
-                        <Button variant="outline-info" size="lg" onClick={() => printReportPdf("a")}>PDF</Button>
+                        <Button variant="outline-info" size="lg" onClick={() => getReport(1, "csv")}>CSV</Button>
+                        <Button variant="outline-info" size="lg" onClick={() => getReport(2, "excel")}>EXCEL</Button>
+                        <Button variant="outline-info" size="lg" onClick={() => getReport(3, "pdf")}>PDF</Button>
                     </div>
                     <Form>
                         <Row>
@@ -137,6 +137,16 @@ function AllReportsPage() {
                                     <Accordion.Header><b>{report.name}</b></Accordion.Header>
                                     <Accordion.Body>
                                         <div>Описание: {report.description}</div>
+                                        {
+                                            report.showInput ?
+                                                <Form>
+                                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                                        <Form.Control placeholder="Введите паспорт пациента"/>
+                                                    </Form.Group>
+                                                </Form>
+                                                :
+                                                null
+                                        }
                                         <Button variant="outline-primary" size="sm">Печать (pdf)</Button>{' '}
                                         <Button variant="outline-primary" size="sm">Печать (excel)</Button>{' '}
                                         <Button variant="outline-primary" size="sm">Печать (csv)</Button>

@@ -72,10 +72,14 @@ function SignUpModal(props) {
     const register = (event) => {
         event.preventDefault()
         setShowError(false)
+
         if (!findFormErrorsForRegister()) {
             let request = {
                 firstname: firstname,
                 lastname: lastname,
+                bloodType: bloodType,
+                passport: passport,
+                age: age,
                 email: email,
                 password: password
             }

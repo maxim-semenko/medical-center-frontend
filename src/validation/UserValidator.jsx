@@ -96,10 +96,9 @@ class UserValidator {
         return error
     }
 
-    validateAllForSignUp(firstname, lastname, username, email, passport, bloodType, age, password) {
+    validateAllForSignUp(firstname, lastname, email, passport, bloodType, age, password) {
         let firstnameError = this.validateFirstname(firstname)
         let lastnameError = this.validateLastname(lastname)
-        let usernameError = this.validateUsername(username)
         let emailError = this.validateEmail(email)
         let passportError = this.validatePassport(passport)
         let bloodTypeError = this.validateBloodType(bloodType)
@@ -109,7 +108,6 @@ class UserValidator {
         return {
             firstnameError,
             lastnameError,
-            usernameError,
             emailError,
             passportError,
             bloodTypeError,

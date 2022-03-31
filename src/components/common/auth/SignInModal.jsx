@@ -3,10 +3,7 @@ import {Alert, Button, Form, Modal} from "react-bootstrap"
 import CSSTransition from "react-transition-group/CSSTransition"
 import {Cookies} from "react-cookie"
 import UserValidator from "../../../validation/UserValidator";
-// import AuthService from "../../../../service/AuthService"
-// import '../../../../styles/Animation.css'
-// import '../../../../styles/FormControl.css'
-// import '../../../../styles/ForgotPasswordLink.css'
+import AuthService from "../../../service/AuthService";
 
 function SignInModal(props) {
     const cookies = new Cookies()
@@ -49,24 +46,22 @@ function SignInModal(props) {
     const handleSubmit = (event) => {
         event.preventDefault()
         if (!findFormErrors()) {
-            // AuthService.login({username: username, password: password})
-            //     .then(response => {
-            //         localStorage.setItem("user", JSON.stringify(response.data.user))
-            //         cookies.set("jwt", response.data.token, {
-            //             path: "/",
-            //             sameSite: "strict",
-            //             maxAge: 3600 * 24 * 60
-            //         })
-            //         window.location.reload()
-            //     }).catch(error => {
-            //         if (error.response.status === 400) {
-            //             setShowError("Profile was locked!")
-            //         } else if (error.response.status === 404 || error.response.status === 403) {
-            //             setShowError("Profile was not founded! Please, check your input username and password")
-            //         }
-            //         console.log(error)
-            //     }
-            // )
+            const request = {
+                email: email,
+                password: password
+            }
+            AuthService.login(request)
+                .then(response => {
+                    cookies.set("token", response.data.token, {
+                        path: "/",
+                        sameSite: "strict",
+                        maxAge: 3600 * 24 * 60
+                    })
+                    window.location.reload()
+                }).catch(error => {
+                    console.log(error)
+                }
+            )
         }
     }
 

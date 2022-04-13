@@ -1,3 +1,5 @@
+import validator from 'validator'
+
 class UserValidator {
 
     // Firstname errors
@@ -26,19 +28,6 @@ class UserValidator {
         return error
     }
 
-    // Username errors
-    validateUsername(username) {
-        let error = "";
-        if (!username || username === '') {
-            error = 'Логин не может быть пустым!';
-        } else if (username.length < 2) {
-            error = 'Логин слишком короткий!';
-        } else if (username.length > 50) {
-            error = 'Логин слишком длинный!';
-        }
-        return error
-    }
-
     // Email errors
     validateEmail(email) {
         let error = "";
@@ -48,6 +37,8 @@ class UserValidator {
             error = 'Почта слишком коротная!';
         } else if (email.length > 50) {
             error = 'Почта слишком длинная!';
+        } else if (!validator.isEmail(email)) {
+            error = 'Неверный формат почты'
         }
         return error
     }
@@ -57,8 +48,10 @@ class UserValidator {
         let error = "";
         if (!passport || passport === '') {
             error = 'Паспорт не может быть пустым!';
-        } else if (passport.length !== 7) {
-            error = 'Паспорт имеет неправильный формат!';
+        } else if (passport.length !== 9) {
+            error = 'Паспорт имеет неправильную длину!';
+        } else if (!validator.isPassportNumber(passport, 'BY')) {
+            error = 'Неверный формат паспорта'
         }
         return error
     }
@@ -77,7 +70,7 @@ class UserValidator {
         let error = "";
         if (!age || age === '') {
             error = 'Возраст не может быть пустым!';
-        } else if (age <= 0) {
+        } else if (age < 0) {
             error = 'Возраст имеет неверный формат!';
         }
         return error
@@ -113,6 +106,20 @@ class UserValidator {
             bloodTypeError,
             ageError,
             passwordError
+        }
+    }
+
+    validateForUpdate = (firstname, lastname, bloodType, age) => {
+        let firstnameError = this.validateFirstname(firstname)
+        let lastnameError = this.validateLastname(lastname)
+        let bloodTypeError = this.validateBloodType(bloodType)
+        let ageError = this.validateAge(age)
+
+        return {
+            firstnameError,
+            lastnameError,
+            bloodTypeError,
+            ageError,
         }
     }
 

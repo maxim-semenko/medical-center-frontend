@@ -39,10 +39,10 @@ export const setLoadingMedicalCard = (loading) => ({
 
 //============================================ Axios requests ==========================================================
 
-export const findMedicalCards = (currentPage = 0, sizePage = 0) => {
+export const findMedicalCards = () => {
     return function (dispatch) {
         dispatch(setLoadingMedicalCards(true))
-        MedicalCardService.findAll(currentPage, sizePage)
+        MedicalCardService.findAll()
             .then((resp) => {
                 dispatch(gotMedicalCardsSuccess(resp.data))
                 console.log(resp.data)
@@ -70,10 +70,10 @@ export const findMedicalCardById = (id) => {
     }
 }
 
-export const findMedicalCardsByUserId = (currentPage = 0, sizePage = 0, userId) => {
+export const findMedicalCardsByUserId = (userId) => {
     return function (dispatch) {
         dispatch(setLoadingAppointments(true))
-        MedicalCardService.findAllByUserId(currentPage, sizePage, userId)
+        MedicalCardService.findAllByUserId(userId)
             .then((resp) => {
                 dispatch(gotMedicalCardsSuccess(resp.data))
                 console.log(resp.data)
@@ -85,10 +85,10 @@ export const findMedicalCardsByUserId = (currentPage = 0, sizePage = 0, userId) 
     }
 }
 
-export const findMedicalCardsByEmployeeId = (currentPage = 0, sizePage = 0, employeeId) => {
+export const findMedicalCardsByEmployeeId = (employeeId) => {
     return function (dispatch) {
         dispatch(setLoadingAppointments(true))
-        MedicalCardService.findAllByEmployeeId(currentPage, sizePage, employeeId)
+        MedicalCardService.findAllByEmployeeId(employeeId)
             .then((resp) => {
                 dispatch(gotMedicalCardsSuccess(resp.data))
                 console.log(resp.data)

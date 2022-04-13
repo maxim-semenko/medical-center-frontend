@@ -19,15 +19,15 @@ function AppointmentToDoctorPage() {
                         </Link>
                     </div>
                     <div style={{paddingTop: "3%"}}>
-                        <Link to="all-employees" className="my-link">
+                        <Link to="/cabinet/chief-doctor/all-employees" className="my-link">
                             <h1>Список сотрудников</h1>
                         </Link>
                         <hr/>
-                        <Link to="all-vaccines" className="my-link">
+                        <Link to="/cabinet/chief-doctor/all-vaccines" className="my-link">
                             <h1>Список вакцин</h1>
                         </Link>
                         <hr/>
-                        <Link to="all-reports" className="my-link">
+                        <Link to="/cabinet/chief-doctor/all-reports" className="my-link">
                             <h1>Список отчетов</h1>
                         </Link>
                         <hr/>

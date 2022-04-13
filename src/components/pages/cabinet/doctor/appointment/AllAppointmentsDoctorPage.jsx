@@ -17,11 +17,11 @@ function AllAppointmentsPatientPage() {
     const [showAboutAppointmentDialog, setShowAboutAppointmentDialog] = useState(false)
 
     // Пусть в системе достор с id = 1
-    const employeeId = 1
+    const employeeId = JSON.parse(localStorage.getItem("current_user")).id;
 
     useEffect(() => {
         if (!isInit) {
-            dispatch(findAppointmentsByEmployeeId(0, 0, employeeId))
+            dispatch(findAppointmentsByEmployeeId(employeeId))
             setIsInit(true)
         }
     }, [isInit])

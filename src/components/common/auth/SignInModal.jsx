@@ -4,6 +4,9 @@ import CSSTransition from "react-transition-group/CSSTransition"
 import {Cookies} from "react-cookie"
 import UserValidator from "../../../validation/UserValidator";
 import AuthService from "../../../service/AuthService";
+import jwt_decode from "jwt-decode";
+import axios from "axios";
+import '../../../styles/Animation.css'
 
 function SignInModal(props) {
     const cookies = new Cookies()
@@ -18,7 +21,7 @@ function SignInModal(props) {
 
     // Global error of Sign in
     const [showError, setShowError] = useState(false)
-    const [textError, setTextError] = useState(false)
+    const [textError, setTextError] = useState('')
 
 
     /**
@@ -51,14 +54,34 @@ function SignInModal(props) {
                 password: password
             }
             AuthService.login(request)
-                .then(response => {
-                    cookies.set("token", response.data.token, {
+                .then(async response => {
+                    const decoded = jwt_decode(response.data);
+                    console.log(response.data)
+                    cookies.set("token", response.data, {
                         path: "/",
                         sameSite: "strict",
-                        maxAge: 3600 * 24 * 60
+                        maxAge: decoded.exp
                     })
-                    window.location.reload()
+                    if (decoded.role === "USER") {
+                        await axios.get(`api/v1/users/${decoded.id}`).then(resp => {
+                            console.log("SAVE USER")
+                            localStorage.setItem("current_user", JSON.stringify(resp.data))
+                        })
+                    } else {
+                        await axios.get(`api/v1/employees/${decoded.id}`, {
+                            headers: {'Authorization': `Bearer ${response.data}`},
+                        }).then(resp => {
+                            console.log("SAVE DOCTOR")
+                            localStorage.setItem("current_user", JSON.stringify(resp.data))
+                        })
+                    }
+                    console.log(decoded)
+                    props.onHide()
                 }).catch(error => {
+                    setShowError(true)
+                    if (error.response.status === 404) {
+                        setTextError("Пользователь с такими данными не найден!")
+                    }
                     console.log(error)
                 }
             )
@@ -105,8 +128,8 @@ function SignInModal(props) {
             <Modal.Body>
                 <CSSTransition in={showError} classNames="my-node" timeout={100} unmountOnExit>
                     <Alert variant="danger" onClose={() => setShowError(false)} dismissible>
-                        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-                        <p>{showError}</p>
+                        <Alert.Heading>Упс! Возникла ошибка!</Alert.Heading>
+                        <p>{textError}</p>
                     </Alert>
                 </CSSTransition>
                 <Form>

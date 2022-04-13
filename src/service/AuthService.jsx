@@ -1,23 +1,25 @@
 import axios from "axios"
-import {Cookies} from "react-cookie"
 
-const API_URL = "/api/v1/auth"
-const cookies = new Cookies()
+const API_URL = "/api/v1"
 
-class DiseaseService {
+class AuthService {
 
+    // Login user
     async login(request) {
-        return axios.get(`${API_URL}/login`)
+        return axios.post(`${API_URL}/login`, request)
     }
 
+    // Register user
     async register(request) {
-        console.log(API_URL)
-        return axios.get(API_URL)
+        return axios.post(`${API_URL}/register`, request)
     }
 
-
-
+    // Logout user
+    async logout(cookies) {
+        cookies.remove("token", {path: "/"})
+        localStorage.removeItem("current_user")
+    }
 
 }
 
-export default new DiseaseService()
+export default new AuthService()

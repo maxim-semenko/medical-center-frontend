@@ -20,11 +20,11 @@ function AllMedicalCardsPage() {
     const [showAboutMedicalCardDialog, setShowAboutMedicalCardDialog] = useState(false)
     const [modeDialog, setModeDialog] = useState('')
 
-    const employeeId = 1
+    const employeeId = JSON.parse(localStorage.getItem("current_user")).id;
 
     useEffect(() => {
         if (!isInit) {
-            dispatch(findMedicalCardsByEmployeeId(0, 0, 1))
+            dispatch(findMedicalCardsByEmployeeId(employeeId))
             setIsInit(true)
         }
     }, [isInit])

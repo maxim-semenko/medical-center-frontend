@@ -86,7 +86,7 @@ function CreateUpdateAppointmentModal(props) {
     const handleSubmit = (event) => {
         event.preventDefault()
         let request = {
-            userEntity: JSON.parse(localStorage.getItem("currentUser")),
+            userEntity: JSON.parse(localStorage.getItem("current_user")),
             employee: employee,
             startDate: startDate,
             endDate: endDate,

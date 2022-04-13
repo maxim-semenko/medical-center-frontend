@@ -3,29 +3,34 @@ import {Button, Container, Nav, Navbar} from "react-bootstrap"
 import imgLogo from '../../img/logo.png'
 
 import {Cookies} from "react-cookie"
-// import AuthService from "../../service/AuthService"
 import {Link} from "react-router-dom";
 import SignInModal from "./auth/SignInModal";
 import SignUpModal from "./auth/SignUpModal";
+import AuthService from "../../service/AuthService";
 
-function NavigationBar(props) {
+function NavigationBar() {
     const cookies = new Cookies()
     const [showSignInModal, setShowSignInModal] = useState(false)
     const [showSignUpModal, setShowSignUpModal] = useState(false)
     const token = cookies.get("token");
 
     const isLogin = () => {
-        if (token != null) {
+        if (token != null && localStorage.getItem("current_user") !== null) {
+            const user = JSON.parse(localStorage.getItem("current_user"))
             return (
                 <div>
-                    <Link to="/profile/cabinet">
-                        <Button variant="outline-primary"><b>profile</b></Button>{' '}
+                    <Link to="/cabinet">
+                        <Button variant="outline-primary"><b>Личный Кабинет
+                            [{user.firstname} {user.lastname}]</b></Button>
                     </Link>
-                    {/*<Button variant="outline-danger" href={"/"}*/}
-                    {/*        onClick={() => AuthService.logout(cookies)}><b>Logout</b></Button>*/}
+                    {' '}
+                    <Button variant="outline-danger" href={"/"}
+                            onClick={() => AuthService.logout(cookies)}><b>Выйти</b></Button>
                 </div>
             )
         } else {
+            cookies.remove("token", {path: "/"})
+            localStorage.removeItem("current_user")
             return (
                 <div>
                     <Button variant="outline-primary" onClick={() => setShowSignInModal(true)}><b>Войти</b></Button>

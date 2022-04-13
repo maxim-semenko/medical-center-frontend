@@ -6,26 +6,34 @@ const cookies = new Cookies()
 
 class VaccineService {
 
-    async findAll(page = 0, size = 0) {
-        console.log(API_URL)
-        // const params = new URLSearchParams([['page', (page - 1)], ['size', size], ['sort', 'name']]);
-        return axios.get(API_URL)
+    async findAll() {
+        return axios.get(API_URL, {
+            headers: {'Authorization': `Bearer ${cookies.get("token")}`},
+        })
     }
 
     async findById(id) {
-        return axios.get(`${API_URL}/${id}`)
+        return axios.get(`${API_URL}/${id}`, {
+            headers: {'Authorization': `Bearer ${cookies.get("token")}`},
+        })
     }
 
     async create(request) {
-        return axios.post(API_URL, request)
+        return axios.post(API_URL, request, {
+            headers: {'Authorization': `Bearer ${cookies.get("token")}`},
+        })
     }
 
     async update(request, id) {
-        return axios.put(`${API_URL}/${id}`, request,)
+        return axios.put(`${API_URL}/${id}`, request, {
+            headers: {'Authorization': `Bearer ${cookies.get("token")}`},
+        })
     }
 
     async deleteById(id) {
-        return axios.delete(`${API_URL}/${id}`)
+        return axios.delete(`${API_URL}/${id}`, {
+            headers: {'Authorization': `Bearer ${cookies.get("token")}`},
+        })
     }
 
 }

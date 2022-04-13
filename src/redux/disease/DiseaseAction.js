@@ -13,10 +13,10 @@ export const setLoadingDiseases = (loading) => ({
 
 //============================================ Axios requests ==========================================================
 
-export const findDiseases = (currentPage = 0, sizePage = 0) => {
+export const findDiseases = () => {
     return function (dispatch) {
         dispatch(setLoadingDiseases(true))
-        DiseaseService.findAll(currentPage, sizePage)
+        DiseaseService.findAll()
             .then((resp) => {
                 dispatch(gotDiseasesSuccess(resp.data))
                 console.log(resp.data)

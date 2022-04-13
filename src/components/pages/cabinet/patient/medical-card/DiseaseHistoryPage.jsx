@@ -16,12 +16,11 @@ function DiseaseHistoryPage() {
 
     const [showAboutMedicalCardDialog, setShowAboutMedicalCardDialog] = useState(false)
 
-    // Пусть в системе пользователь с id = 1
-    const userId = JSON.parse(localStorage.getItem("currentUser")).id;
+    const userId = JSON.parse(localStorage.getItem("current_user")).id;
 
     useEffect(() => {
         if (!isInit) {
-            dispatch(findMedicalCardsByUserId(0, 0, userId))
+            dispatch(findMedicalCardsByUserId(userId))
             setIsInit(true)
         }
     }, [isInit])

@@ -6,22 +6,29 @@ const cookies = new Cookies()
 
 class EmployeeService {
 
-    async findAll(page = 0, size = 0) {
-        console.log(API_URL)
-        // const params = new URLSearchParams([['page', (page - 1)], ['size', size], ['sort', 'name']]);
-        return axios.get(API_URL)
+    async findAll() {
+        return axios.get(API_URL, {
+            headers: {'Authorization': `Bearer ${cookies.get("token")}`},
+        })
     }
 
     async findById(id) {
-        return axios.get(`${API_URL}/${id}`)
+        return axios.get(`${API_URL}/${id}`, {
+            headers: {'Authorization': `Bearer ${cookies.get("token")}`},
+        })
     }
 
-    async findAllPatientsByEmployeeId(page = 0, size = 0, employeeId) {
-        console.log(API_URL)
-        // const params = new URLSearchParams([['page', (page - 1)], ['size', size], ['sort', 'name']]);
-        return axios.get(`${API_URL}/${employeeId}/users`)
+    async findAllPatientsByEmployeeId(employeeId) {
+        return axios.get(`${API_URL}/${employeeId}/users`, {
+            headers: {'Authorization': `Bearer ${cookies.get("token")}`},
+        })
     }
 
+    async updateById(request, id) {
+        return axios.put(`${API_URL}/${id}`, request, {
+            headers: {'Authorization': `Bearer ${cookies.get("token")}`},
+        })
+    }
 
 }
 

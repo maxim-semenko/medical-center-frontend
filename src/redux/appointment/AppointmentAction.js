@@ -38,10 +38,10 @@ export const setLoadingAppointments = (loading) => ({
 
 //============================================ Axios requests ==========================================================
 
-export const findAppointments = (currentPage = 0, sizePage = 0) => {
+export const findAppointments = () => {
     return function (dispatch) {
         dispatch(setLoadingAppointments(true))
-        AppointmentService.findAll(currentPage, sizePage)
+        AppointmentService.findAll()
             .then((resp) => {
                 dispatch(gotAppointmentsSuccess(resp.data))
                 console.log(resp.data)
@@ -53,10 +53,10 @@ export const findAppointments = (currentPage = 0, sizePage = 0) => {
     }
 }
 
-export const findAppointmentsByUserId = (currentPage = 0, sizePage = 0, userId) => {
+export const findAppointmentsByUserId = (userId) => {
     return function (dispatch) {
         dispatch(setLoadingAppointments(true))
-        AppointmentService.findAllByUserId(currentPage, sizePage, userId)
+        AppointmentService.findAllByUserId(userId)
             .then((resp) => {
                 dispatch(gotAppointmentsSuccess(resp.data))
                 console.log(resp.data)
@@ -68,10 +68,10 @@ export const findAppointmentsByUserId = (currentPage = 0, sizePage = 0, userId) 
     }
 }
 
-export const findAppointmentsByEmployeeId = (currentPage = 0, sizePage = 0, employeeId) => {
+export const findAppointmentsByEmployeeId = (employeeId) => {
     return function (dispatch) {
         dispatch(setLoadingAppointments(true))
-        AppointmentService.findAllByEmployeeId(currentPage, sizePage, employeeId)
+        AppointmentService.findAllByEmployeeId(employeeId)
             .then((resp) => {
                 dispatch(gotAppointmentsSuccess(resp.data))
                 console.log(resp.data)

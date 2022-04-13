@@ -32,6 +32,7 @@ function UpdatePatientVaccineModal(props) {
     }
 
     const handleSubmit = () => {
+        console.log(patient)
         const request = {
             id: patient.id,
             firstname: patient.firstname,
@@ -120,7 +121,8 @@ function UpdatePatientVaccineModal(props) {
                                                 </option>
                                             )}
                                         </Form.Select>
-                                        <Form.Control.Feedback type='invalid'>{selectedVaccineError}</Form.Control.Feedback>
+                                        <Form.Control.Feedback
+                                            type='invalid'>{selectedVaccineError}</Form.Control.Feedback>
                                     </Form.Group>
                                     <Button variant="outline-primary" onClick={() => addVaccine()}>
                                         Добавить выбранную вакцину

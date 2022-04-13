@@ -7,16 +7,18 @@ import {useDispatch, useSelector} from "react-redux";
 import {findPatientById, findPatientsByEmployeeId} from "../../../../../redux/patient/PatientAction";
 import UpdatePatientVaccineModal from "./UpdatePatientVaccineModal";
 
-function PatientVaccines(props) {
+function PatientVaccines() {
 
     const [isInit, setIsInit] = useState(false)
     const dispatch = useDispatch()
     const {patients, loadingPatients} = useSelector(state => state.patientDate)
     const [showUpdatePatientDialog, setShowUpdatePatientDialog] = useState(false)
 
+    const employeeId = JSON.parse(localStorage.getItem("current_user")).id;
+
     useEffect(() => {
         if (!isInit) {
-            dispatch(findPatientsByEmployeeId(0, 0, 1))
+            dispatch(findPatientsByEmployeeId(employeeId))
             setIsInit(true)
         }
     }, [isInit])

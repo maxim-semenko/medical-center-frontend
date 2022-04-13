@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
-import {Button, Col, Form, Modal, Row} from "react-bootstrap"
-// import AuthService from "../../../../service/AuthService"
+import {Alert, Button, Col, Form, Modal, Row} from "react-bootstrap"
 import UserValidator from "../../../validation/UserValidator";
+import AuthService from "../../../service/AuthService";
+import CSSTransition from "react-transition-group/CSSTransition";
 
 function SignUpModal(props) {
 
@@ -23,11 +24,10 @@ function SignUpModal(props) {
     const [bloodTypeError, setBloodTypeError] = useState('')
     const [ageError, setAgeError] = useState('')
 
-    const [showSuccess, setShowSuccess] = useState('');
-    const [textSuccess, setTextSuccess] = useState('');
+    const [showSuccess, setShowSuccess] = useState(false);
 
     const [showError, setShowError] = useState(false);
-    const [textError, setTextError] = useState(false);
+    const [textError, setTextError] = useState('');
 
 
     const changePasswordHandler = (event) => {
@@ -83,20 +83,24 @@ function SignUpModal(props) {
                 email: email,
                 password: password
             }
-            // AuthService.register(request)
-            //     .then(response => {
-            //         console.log(response.data)
-            //         setShowSuccessfulSignUp(true)
-            //         setTimeout(function () {
-            //             if (props.show) {
-            //                 props.onHide()
-            //             }
-            //         }, 5000);
-            //     })
-            //     .catch(error => {
-            //         console.log(error.response.data)
-            //         setShowErrorSignUp(error.response.data.message)
-            //     })
+            console.log(request)
+            AuthService.register(request)
+                .then(response => {
+                    console.log(response.data)
+                    setShowSuccess(true)
+                    setTimeout(function () {
+                        if (props.show) {
+                            props.onHide()
+                        }
+                    }, 5000);
+                })
+                .catch(error => {
+                    console.log(error.response.data)
+                    if (error.response.status === 409) {
+                        setTextError("Пользователь с такой почтой или паспортом уже существует!")
+                    }
+                    setShowError(true)
+                })
         }
     }
 
@@ -132,18 +136,18 @@ function SignUpModal(props) {
                 <Modal.Title>Регистрация</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {/*<CSSTransition in={showErrorSignUp} classNames="my-node" timeout={100} unmountOnExit>*/}
-                {/*    <Alert variant="danger" onClose={() => setShowErrorSignUp(false)} dismissible>*/}
-                {/*        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>*/}
-                {/*        <p>{showErrorSignUp}</p>*/}
-                {/*    </Alert>*/}
-                {/*</CSSTransition>*/}
-                {/*<CSSTransition in={showSuccessfulSignUp} classNames="my-node" timeout={100} unmountOnExit>*/}
-                {/*    <Alert variant="success" onClose={() => setShowSuccessfulSignUp(false)} dismissible>*/}
-                {/*        <Alert.Heading>All right! You have successfully registered!</Alert.Heading>*/}
-                {/*        <p>Your username: {username}. Close after 5sec...</p>*/}
-                {/*    </Alert>*/}
-                {/*</CSSTransition>*/}
+                <CSSTransition in={showError} classNames="my-node" timeout={100} unmountOnExit>
+                    <Alert variant="danger" onClose={() => setShowError(false)} dismissible>
+                        <Alert.Heading>Упс! Возникла ошибка!</Alert.Heading>
+                        <p>{textError}</p>
+                    </Alert>
+                </CSSTransition>
+                <CSSTransition in={showSuccess} classNames="my-node" timeout={100} unmountOnExit>
+                    <Alert variant="success" onClose={() => setShowSuccess(false)} dismissible>
+                        <Alert.Heading>Все отлично! Вы успешно зарегестрировались!</Alert.Heading>
+                        <p>Окно закроется автоматически через 5 секунд...</p>
+                    </Alert>
+                </CSSTransition>
                 <Form>
                     <Row>
                         <Col>

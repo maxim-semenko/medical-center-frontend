@@ -6,42 +6,51 @@ const cookies = new Cookies()
 
 class AppointmentService {
 
-    async findAll(page = 0, size = 0) {
-        console.log(API_URL)
-        // const params = new URLSearchParams([['page', (page - 1)], ['size', size], ['sort', 'name']]);
-        return axios.get(API_URL)
+    async findAll() {
+        return axios.get(API_URL, {
+            headers: {'Authorization': `Bearer ${cookies.get("token")}`},
+        })
     }
 
-    async findAllByUserId(page = 0, size = 0, userId) {
-        console.log(API_URL)
-        // const params = new URLSearchParams([['page', (page - 1)], ['size', size], ['sort', 'name']]);
-        return axios.get(`${API_URL}/users/${userId}`)
+    async findAllByUserId(userId) {
+        return axios.get(`${API_URL}/users/${userId}`, {
+            headers: {'Authorization': `Bearer ${cookies.get("token")}`},
+        })
     }
 
-    async findAllByEmployeeId(page = 0, size = 0, employeeId) {
-        console.log(API_URL)
-        // const params = new URLSearchParams([['page', (page - 1)], ['size', size], ['sort', 'name']]);
-        return axios.get(`${API_URL}/employees/${employeeId}`)
-
+    async findAllByEmployeeId(employeeId) {
+        console.log(`${API_URL}/employees/${employeeId}`)
+        return axios.get(`${API_URL}/employees/${employeeId}`, {
+            headers: {'Authorization': `Bearer ${cookies.get("token")}`},
+        })
     }
 
     async findById(id) {
-        console.log(`${API_URL}/${id}`)
-        return axios.get(`${API_URL}/${id}`)
+        return axios.get(`${API_URL}/${id}`, {
+            headers: {'Authorization': `Bearer ${cookies.get("token")}`},
+        })
     }
 
     async create(request) {
-        return axios.post(API_URL, request)
+        return axios.post(API_URL, request, {
+            headers: {'Authorization': `Bearer ${cookies.get("token")}`},
+        })
     }
 
     async update(request, id) {
-        return axios.put(`${API_URL}/${id}`, request,)
+        return axios.put(`${API_URL}/${id}`, request, {
+            headers: {'Authorization': `Bearer ${cookies.get("token")}`},
+        })
     }
 
     async deleteById(id) {
-        return axios.delete(`${API_URL}/${id}`)
+        return axios.delete(`${API_URL}/${id}`, {
+            headers: {'Authorization': `Bearer ${cookies.get("token")}`},
+        })
     }
 
 }
 
-export default new AppointmentService()
+export default new
+
+AppointmentService()

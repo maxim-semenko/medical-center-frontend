@@ -1,6 +1,6 @@
 import './styles/App.css';
 import React from "react";
-import {Route, Routes} from "react-router-dom";
+import {Route} from "react-router-dom";
 import HomePage from "./components/pages/view/HomePage";
 import AboutPage from "./components/pages/view/AboutPage";
 import Cabinet from "./components/pages/cabinet/Cabinet";
@@ -15,32 +15,30 @@ import AllMedicalCardsPage from "./components/pages/cabinet/doctor/medical-cards
 import EditProfileCabinetPage from "./components/pages/cabinet/EditProfileCabinetPage";
 import AllAppointmentsDoctorPage from "./components/pages/cabinet/doctor/appointment/AllAppointmentsDoctorPage";
 import PatientVaccines from "./components/pages/cabinet/doctor/vaccine/PatientVaccines";
+import ProtectRoute from "./components/common/ProtectRoute";
 
 function App() {
     return (
         <div className="App">
-            <Routes>
+            {/* Common pages */}
+            <Route exact path="/" component={HomePage}/>
+            <Route path="/about" component={AboutPage}/>
+            <ProtectRoute exact path="/cabinet" component={Cabinet}/>
+            <ProtectRoute path="/cabinet/edit" component={EditProfileCabinetPage}/>
+            <ProtectRoute path="/cabinet/appointment-doctor" component={AllAppointmentsPatientPage}/>
+            <ProtectRoute path="/cabinet/history" component={DiseaseHistoryPage}/>
 
-                {/* Common pages */}
-                <Route path="/" element={<HomePage/>}/>
-                <Route path="/about" element={<AboutPage/>}/>
-                <Route path="/cabinet" element={<Cabinet/>}/>
-                <Route path="/cabinet/edit" element={<EditProfileCabinetPage/>}/>
-                <Route path="/cabinet/appointment-doctor" element={<AllAppointmentsPatientPage/>}/>
-                <Route path="/cabinet/history" element={<DiseaseHistoryPage/>}/>
+            {/* Doctor's pages */}
+            <ProtectRoute exact path="/cabinet/doctor" component={DoctorPage}/>
+            <ProtectRoute path="/cabinet/doctor/medical-cards" component={AllMedicalCardsPage}/>
+            <ProtectRoute path="/cabinet/doctor/appointments" component={AllAppointmentsDoctorPage}/>
+            <ProtectRoute path="/cabinet/doctor/patient-vaccines" component={PatientVaccines}/>
 
-                {/* Doctor's pages */}
-                <Route path="/cabinet/doctor" element={<DoctorPage/>}/>
-                <Route path="/cabinet/doctor/medical-cards" element={<AllMedicalCardsPage/>}/>
-                <Route path="/cabinet/doctor/appointments" element={<AllAppointmentsDoctorPage/>}/>
-                <Route path="/cabinet/doctor/patient-vaccines" element={<PatientVaccines/>}/>
-
-                {/* Chief-doctor's pages */}
-                <Route path="/cabinet/chief-doctor" element={<ChiefDoctorPage/>}/>
-                <Route path="/cabinet/chief-doctor/all-employees" element={<AllEmployeesPage/>}/>
-                <Route path="/cabinet/chief-doctor/all-vaccines" element={<AllVaccinesPage/>}/>
-                <Route path="/cabinet/chief-doctor/all-reports" element={<AllReportsPage/>}/>
-            </Routes>
+            {/* Chief-doctor's pages */}
+            <ProtectRoute exact path="/cabinet/chief-doctor" component={ChiefDoctorPage}/>
+            <ProtectRoute path="/cabinet/chief-doctor/all-employees" component={AllEmployeesPage}/>
+            <ProtectRoute path="/cabinet/chief-doctor/all-vaccines" component={AllVaccinesPage}/>
+            <ProtectRoute path="/cabinet/chief-doctor/all-reports" component={AllReportsPage}/>
         </div>
     );
 }

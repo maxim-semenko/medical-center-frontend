@@ -1,7 +1,6 @@
 import * as types from "./PatientActionType"
 import EmployeeService from "../../service/EmployeeService";
 import UserService from "../../service/UserService";
-import MedicalCardService from "../../service/MedicalCardService";
 
 const gotPatientsSuccess = (patients) => ({
     type: types.GET_PATIENTS_BY_EMPLOYEE_ID,
@@ -30,10 +29,10 @@ export const setLoadingPatient = (loading) => ({
 
 //============================================ Axios requests ==========================================================
 
-export const findPatientsByEmployeeId = (currentPage = 0, sizePage = 0, employeeId) => {
+export const findPatientsByEmployeeId = (employeeId) => {
     return function (dispatch) {
         dispatch(setLoadingPatients(true))
-        EmployeeService.findAllPatientsByEmployeeId(currentPage, sizePage, employeeId)
+        EmployeeService.findAllPatientsByEmployeeId(employeeId)
             .then((resp) => {
                 console.log(resp.data)
                 dispatch(gotPatientsSuccess(resp.data))

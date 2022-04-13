@@ -38,10 +38,10 @@ export const setLoadingVaccine = (loading) => ({
 
 //============================================ Axios requests ==========================================================
 
-export const findVaccines = (currentPage = 0, sizePage = 0) => {
+export const findVaccines = () => {
     return function (dispatch) {
         dispatch(setLoadingVaccines(true))
-        VaccineService.findAll(currentPage, sizePage)
+        VaccineService.findAll()
             .then((resp) => {
                 dispatch(gotVaccinesSuccess(resp.data))
                 console.log(resp.data)

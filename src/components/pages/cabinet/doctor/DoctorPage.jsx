@@ -18,15 +18,15 @@ function DoctorPage(props) {
                         </Link>
                     </div>
                     <div style={{paddingTop: "3%"}}>
-                        <Link to="appointments" className="my-link">
+                        <Link to="/cabinet/doctor/appointments" className="my-link">
                             <h1>Список записей ваших пациентов на прием</h1>
                         </Link>
                         <hr/>
-                        <Link to="medical-cards" className="my-link">
+                        <Link to="/cabinet/doctor/medical-cards" className="my-link">
                             <h1>Список медицинских карт ваших пациентов</h1>
                         </Link>
                         <hr/>
-                        <Link to="patient-vaccines" className="my-link">
+                        <Link to="/cabinet/doctor/patient-vaccines" className="my-link">
                             <h1>Список вакцинации ваших пациентов</h1>
                         </Link>
                         <hr/>

@@ -10,7 +10,7 @@ function ProtectRoute({component: Component, ...rest}) {
             {...rest}
             render={(props) => {
                 let token = cookies.get("token")
-                jwt.verify(token, 'key', function (err) {
+                jwt.verify(token, 'JWT_KEY', function (err) {
                     if (err) {
                         console.log("NOT VALID JWT token")
                         cookies.remove("token", {path: "/"})

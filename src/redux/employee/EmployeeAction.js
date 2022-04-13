@@ -23,10 +23,10 @@ export const setLoadingEmployee = (loading) => ({
 
 //============================================ Axios requests ==========================================================
 
-export const findEmployees = (currentPage = 0, sizePage = 0) => {
+export const findEmployees = () => {
     return function (dispatch) {
         dispatch(setLoadingEmployees(true))
-        EmployeeService.findAll(currentPage, sizePage)
+        EmployeeService.findAll()
             .then((resp) => {
                 console.log(resp.data)
                 dispatch(gotEmployeesSuccess(resp.data))

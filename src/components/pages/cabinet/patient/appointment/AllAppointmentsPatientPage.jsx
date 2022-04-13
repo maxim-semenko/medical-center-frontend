@@ -23,11 +23,11 @@ function AllAppointmentsPatientPage() {
 
 
     // Пусть в системе пользователь с id = 1
-    const userId = JSON.parse(localStorage.getItem("currentUser")).id;
+    const userId = JSON.parse(localStorage.getItem("current_user")).id;
 
     useEffect(() => {
         if (!isInit) {
-            dispatch(findAppointmentsByUserId(0, 0, userId))
+            dispatch(findAppointmentsByUserId(userId))
             setIsInit(true)
         }
     }, [isInit])

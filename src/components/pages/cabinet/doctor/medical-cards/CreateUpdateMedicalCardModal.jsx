@@ -15,7 +15,7 @@ function CreateUpdateMedicalCardModal(props) {
     const {diseases, loadingDiseases,} = useSelector(state => state.diseaseDate)
     const {appointments, loadingAppointments,} = useSelector(state => state.appointmentDate)
 
-    const employeeId = 1
+    const employeeId = JSON.parse(localStorage.getItem("current_user")).id;
 
     const [id, setId] = useState(0)
     const [appointment, setAppointment] = useState(null)
@@ -35,7 +35,7 @@ function CreateUpdateMedicalCardModal(props) {
 
 
     useEffect(() => {
-        dispatch(findAppointmentsByEmployeeId(0, 0, employeeId))
+        dispatch(findAppointmentsByEmployeeId(employeeId))
         dispatch(findDiseases())
         if (props.mode === "update" && !loadingMedicalCard) {
             setId(medicalCard.id)
